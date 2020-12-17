@@ -1,0 +1,115 @@
+@startuml
+class User{
+int id
+string firstname
+string lastname
+string email
+string password
+datetimeImmutable registeredAt
+?ForgottenPassword forgottenPassword
+}
+
+class ForgottenPassword{
+string token
+datetimeImmutable sentAt
+}
+
+class Producer{
+Farm farm
+}
+
+class Farm{
+int id
+string name
+string slug
+?string logo
+?string image
+?string description
+?Address adress
+Collection<Product> products
+Producer producer
+}
+
+class Address{
+string address
+string additionalAddress
+string postCode
+string city
+position Position
+}
+
+class Position{
+float latitude
+float longitude
+}
+
+class Product{
+int id
+string name
+string slug
+Price price
+int quantity
+Farm farm
+}
+
+class Price{
+int unitPrice
+float vat
+}
+
+class Customer{
+Collection<CartItem>
+}
+
+class CartItem{
+int id
+Product product
+Customer customer
+int quantity
+}
+
+class Slot{
+int id
+Order order
+DatetimeImmutable startedAt
+DatetimeImmutable endedAt
+}
+
+class Order{
+int id
+DatetimeImmutable orderedAt
+?DatetimeImmutable acceptedAt
+?DatetimeImmutable refusedAt
+?DatetimeImmutable canceledAt
+string state
+Farm farm
+Customer customer
+Slot slot
+Collection<OrderLine> lines
+}
+
+class OrderLine{
+int id
+Order order
+Price price
+int quantity
+Product product
+}
+
+Customer -|> User
+Producer -|> User
+Slot "One" -- "One" Order
+Order "Many" -- "One" OrderLine
+OrderLine "Many" -- "One" Product
+Order "Many" -- "One" Farm
+Farm "Many" -- "One" Product
+Order "Many" -- "One" Customer
+CartItem "Many" -- "One" Customer
+CartItem "Many" -- "One" Product
+Producer "One" -- "One" Farm
+Product *-- Price
+OrderLine *-- Price
+Farm *-- Address
+Address *-- Position
+User *-- ForgottenPassword
+@enduml
