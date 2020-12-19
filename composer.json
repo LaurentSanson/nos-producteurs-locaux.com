@@ -41,6 +41,7 @@
         "symfony/web-link": "5.2.*",
         "symfony/webpack-encore-bundle": "^1.8",
         "symfony/yaml": "5.2.*",
+        "symfonycasts/verify-email-bundle": "^1.1",
         "twig/extra-bundle": "^2.12|^3.0",
         "twig/twig": "^2.12|^3.0"
     },
@@ -79,6 +80,18 @@
         "symfony/polyfill-php72": "*"
     },
     "scripts": {
+        "prepare-test": [
+            "php bin/console d:d:d --if-exists --force --env=test",
+            "php bin/console d:d:c --env=test",
+            "php bin/console d:s:u -f --env=test",
+            "php bin/console d:f:l -n --env=test"
+        ],
+        "prepare-dev": [
+            "php bin/console d:d:d --if-exists --force --env=dev",
+            "php bin/console d:d:c --env=dev",
+            "php bin/console d:s:u -f --env=dev",
+            "php bin/console d:f:l -n --env=dev"
+        ],
         "auto-scripts": {
             "cache:clear": "symfony-cmd",
             "assets:install %PUBLIC_DIR%": "symfony-cmd"

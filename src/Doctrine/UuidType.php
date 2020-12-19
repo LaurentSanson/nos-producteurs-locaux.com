@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Doctrine;
 
 use Doctrine\DBAL\Platforms\AbstractPlatform;
@@ -41,20 +40,21 @@ class UuidType extends GuidType
         return $uuid;
     }
 
-    public function convertToDatabaseValue($value, AbstractPlatform $platform)
+    public function convertToDatabaseValue($value, AbstractPlatform $platform): ?string
     {
         if ($value === null || $value === '') {
             return null;
         }
 
         if (
-            $value instanceof Uuid || (is_string($value) || method_exists($value, '__toString')) && Uuid::isValid($value)
+            $value instanceof Uuid
+            || (is_string($value)
+                || method_exists($value, '__toString'))
+            && Uuid::isValid($value)
         ) {
             return (string) $value;
         }
 
         throw ConversionException::conversionFailed($value, static::NAME);
     }
-
-
 }
