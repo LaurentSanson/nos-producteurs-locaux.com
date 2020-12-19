@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-<<<<<<< Updated upstream
-    <list default="true" id="c21f9e4f-a462-422d-a4a2-f20e72551920" name="Default Changelist" comment="" />
-=======
     <list default="true" id="c21f9e4f-a462-422d-a4a2-f20e72551920" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/nosProducteursLocaux.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/nosProducteursLocaux.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
@@ -13,7 +10,6 @@
       <change beforePath="$PROJECT_DIR$/config/packages/security.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/security.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/symfony.lock" beforeDir="false" afterPath="$PROJECT_DIR$/symfony.lock" afterDir="false" />
     </list>
->>>>>>> Stashed changes
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -147,18 +143,15 @@
       <path value="$PROJECT_DIR$/vendor/symfony/config" />
       <path value="$PROJECT_DIR$/vendor/symfony/translation-contracts" />
       <path value="$PROJECT_DIR$/vendor/symfony/stopwatch" />
-<<<<<<< Updated upstream
       <path value="$PROJECT_DIR$/vendor/symfony/webpack-encore-bundle" />
       <path value="$PROJECT_DIR$/vendor/doctrine/doctrine-fixtures-bundle" />
       <path value="$PROJECT_DIR$/vendor/doctrine/data-fixtures" />
       <path value="$PROJECT_DIR$/vendor/dama/doctrine-test-bundle" />
       <path value="$PROJECT_DIR$/vendor/bin/.phpunit" />
       <path value="$PROJECT_DIR$/vendor/squizlabs/php_codesniffer" />
-=======
       <path value="$PROJECT_DIR$/vendor/bin/.phpunit" />
       <path value="$PROJECT_DIR$/vendor/symfony/uid" />
       <path value="$PROJECT_DIR$/vendor/symfony/polyfill-uuid" />
->>>>>>> Stashed changes
     </include_path>
   </component>
   <component name="ProjectId" id="1lnX7spLaSV4uNfUuhh0NSHk8kE" />
@@ -177,19 +170,21 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="npm" />
-<<<<<<< Updated upstream
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
     <property name="settings.editor.selected.configurable" value="project.propVCSSupport.CommitDialog" />
-=======
     <property name="php.override.implement.member.chooser.php.doc" value="NONE" />
-    <property name="settings.editor.selected.configurable" value="reference.webide.settings.project.settings.php" />
->>>>>>> Stashed changes
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$" />
     </key>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="ComposerRunConfigurationType" factoryName="Composer Script">
+      <option name="pathToComposerJson" value="$PROJECT_DIR$/composer.json" />
+      <method v="2" />
+    </configuration>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -216,7 +211,6 @@
     <option name="version" value="3" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
-<<<<<<< Updated upstream
     <option name="TAB_STATES">
       <map>
         <entry key="MAIN">
@@ -226,13 +220,11 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="ci: setup github action" />
     <option name="LAST_COMMIT_MESSAGE" value="ci: setup github action" />
-=======
-    <option name="oldMeFiltersMigrated" value="true" />
->>>>>>> Stashed changes
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
