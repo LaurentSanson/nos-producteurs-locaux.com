@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Customer extends User
 {
-    public const ROLE = 'customer';
+    public const ROLE = "customer";
 
     public function getRoles(): array
     {

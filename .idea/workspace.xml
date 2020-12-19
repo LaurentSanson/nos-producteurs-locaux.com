@@ -2,10 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c21f9e4f-a462-422d-a4a2-f20e72551920" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.github/workflows/ci.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/ci.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/phpunit.xml.dist" beforeDir="false" afterPath="$PROJECT_DIR$/phpunit.xml.dist" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Customer.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Customer.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Producer.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Producer.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/ui/registration/register.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/ui/registration/register.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -167,11 +168,13 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="node.js.detected.package.stylelint" value="true" />
+    <property name="node.js.path.for.package.stylelint" value="project" />
+    <property name="node.js.selected.package.stylelint" value="" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.CommitDialog" />
     <property name="php.override.implement.member.chooser.php.doc" value="NONE" />
-    <property name="settings.editor.selected.configurable" value="reference.webide.settings.project.settings.php" />
+    <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
@@ -211,7 +214,14 @@
       <option name="project" value="LOCAL" />
       <updated>1608391453351</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="fix: change password on dev ci">
+      <created>1608392689219</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1608392689219</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -260,7 +270,8 @@
     </ignored-roots>
     <MESSAGE value="ci: setup github action" />
     <MESSAGE value="build: add .idea to gitignore" />
-    <option name="LAST_COMMIT_MESSAGE" value="build: add .idea to gitignore" />
+    <MESSAGE value="fix: change password on dev ci" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix: change password on dev ci" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Producer extends User
 {
-    public const ROLE = 'producer';
+    public const ROLE = "producer";
 
     public function getRoles(): array
     {
