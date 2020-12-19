@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-<<<<<<< Updated upstream
     <list default="true" id="c21f9e4f-a462-422d-a4a2-f20e72551920" name="Default Changelist" comment="" />
-=======
     <list default="true" id="c21f9e4f-a462-422d-a4a2-f20e72551920" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/nosProducteursLocaux.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/nosProducteursLocaux.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
@@ -13,7 +11,6 @@
       <change beforePath="$PROJECT_DIR$/config/packages/security.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/security.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/symfony.lock" beforeDir="false" afterPath="$PROJECT_DIR$/symfony.lock" afterDir="false" />
     </list>
->>>>>>> Stashed changes
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -33,6 +30,7 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RESET_MODE" value="HARD" />
   </component>
   <component name="GithubDefaultAccount">
     <option name="defaultAccountId" value="19a7cf1d-cf5a-4fcb-b3fa-f7ffdb3c80b5" />
@@ -147,18 +145,15 @@
       <path value="$PROJECT_DIR$/vendor/symfony/config" />
       <path value="$PROJECT_DIR$/vendor/symfony/translation-contracts" />
       <path value="$PROJECT_DIR$/vendor/symfony/stopwatch" />
-<<<<<<< Updated upstream
       <path value="$PROJECT_DIR$/vendor/symfony/webpack-encore-bundle" />
       <path value="$PROJECT_DIR$/vendor/doctrine/doctrine-fixtures-bundle" />
       <path value="$PROJECT_DIR$/vendor/doctrine/data-fixtures" />
       <path value="$PROJECT_DIR$/vendor/dama/doctrine-test-bundle" />
       <path value="$PROJECT_DIR$/vendor/bin/.phpunit" />
       <path value="$PROJECT_DIR$/vendor/squizlabs/php_codesniffer" />
-=======
       <path value="$PROJECT_DIR$/vendor/bin/.phpunit" />
       <path value="$PROJECT_DIR$/vendor/symfony/uid" />
       <path value="$PROJECT_DIR$/vendor/symfony/polyfill-uuid" />
->>>>>>> Stashed changes
     </include_path>
   </component>
   <component name="ProjectId" id="1lnX7spLaSV4uNfUuhh0NSHk8kE" />
@@ -177,13 +172,10 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="npm" />
-<<<<<<< Updated upstream
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
     <property name="settings.editor.selected.configurable" value="project.propVCSSupport.CommitDialog" />
-=======
     <property name="php.override.implement.member.chooser.php.doc" value="NONE" />
     <property name="settings.editor.selected.configurable" value="reference.webide.settings.project.settings.php" />
->>>>>>> Stashed changes
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
@@ -194,13 +186,14 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="c21f9e4f-a462-422d-a4a2-f20e72551920" name="Default Changelist" comment="" />
+      <changelist id="d136526a-1bc9-4a41-ac8e-6651d61fa81d" name="Default Changelist" comment="" />
       <created>1608233668623</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1608233668623</updated>
       <workItem from="1608233670961" duration="2965000" />
       <workItem from="1608356739100" duration="6150000" />
+      <workItem from="1608369459679" duration="183000" />
     </task>
     <task id="LOCAL-00001" summary="ci: setup github action">
       <created>1608362634503</created>
@@ -216,9 +209,33 @@
     <option name="version" value="3" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
-<<<<<<< Updated upstream
     <option name="TAB_STATES">
       <map>
+        <entry key="1">
+          <value>
+            <State>
+              <option name="SHOW_ONLY_AFFECTED_CHANGES" value="true" />
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="HEAD" />
+                      </list>
+                    </value>
+                  </entry>
+                  <entry key="structure">
+                    <value>
+                      <list>
+                        <option value="dir:/home/laurent/projets/nosProducteursLocaux/.idea" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
         <entry key="MAIN">
           <value>
             <State />
@@ -226,13 +243,14 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
+    <ignored-roots>
+      <path value="$PROJECT_DIR$/nos-producteurs-locaux.com" />
+    </ignored-roots>
     <MESSAGE value="ci: setup github action" />
     <option name="LAST_COMMIT_MESSAGE" value="ci: setup github action" />
-=======
-    <option name="oldMeFiltersMigrated" value="true" />
->>>>>>> Stashed changes
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
