@@ -14,5 +14,13 @@
         "dev": "encore dev",
         "watch": "encore dev --watch",
         "build": "encore production --progress"
+    },
+    "dependencies": {
+        "@fortawesome/fontawesome-free": "^5.15.1",
+        "bootstrap": "^4.5.3",
+        "jquery": "^3.5.1",
+        "node-sass": "^4.14.1",
+        "popper.js": "^1.16.1",
+        "sass-loader": "^9.0.3"
     }
 }
