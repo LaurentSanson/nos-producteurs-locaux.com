@@ -177,7 +177,7 @@
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="php.override.implement.member.chooser.php.doc" value="NONE" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="watcher.settings" />
+    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
@@ -196,6 +196,9 @@
     </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="SvnConfiguration">
+    <configuration>$USER_HOME$/.subversion</configuration>
+  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="c21f9e4f-a462-422d-a4a2-f20e72551920" name="Default Changelist" comment="" />
@@ -252,7 +255,14 @@
       <option name="project" value="LOCAL" />
       <updated>1608458980028</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="fix: add .idea to gitignore">
+      <created>1608461720436</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1608461720436</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -280,7 +290,8 @@
     <MESSAGE value="fix: phpunit" />
     <MESSAGE value="feat: login and logout" />
     <MESSAGE value="feat: forgotten password" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: forgotten password" />
+    <MESSAGE value="fix: add .idea to gitignore" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix: add .idea to gitignore" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
