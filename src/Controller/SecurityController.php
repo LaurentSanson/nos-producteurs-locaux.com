@@ -63,11 +63,11 @@ class SecurityController extends AbstractController
         UserRepository $userRepository,
         MailerInterface $mailer
     ): Response {
-        $forgotterPasswordInput = new ForgottenPasswordInput();
-        $form = $this->createForm(ForgottenPasswordType::class, $forgotterPasswordInput)->handleRequest($request);
+        $forgottenPasswordInput = new ForgottenPasswordInput();
+        $form = $this->createForm(ForgottenPasswordType::class, $forgottenPasswordInput)->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $user = $userRepository->findOneByEmail($forgotterPasswordInput->getEmail());
+            $user = $userRepository->findOneByEmail($forgottenPasswordInput->getEmail());
             $user->hasForgotHisPassword();
             $this->getDoctrine()->getManager()->flush();
             $email = (new TemplatedEmail())
