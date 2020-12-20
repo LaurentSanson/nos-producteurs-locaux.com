@@ -11,7 +11,7 @@
     <body>
     <header>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="#">Nos Producteurs Locaux</a>
+            <a class="navbar-brand" href="{{ path('index') }}">Nos Producteurs Locaux</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#header-navbar" aria-controls="header-navbar" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -22,8 +22,16 @@
                         <a class="nav-link" href="{{ path('index') }}">Accueil <span class="sr-only">(current)</span></a>
                     </li>
                     {% if is_granted("ROLE_USER") %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ path('security_logout') }}">Se déconnecter</a>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Mon Compte
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                {% if is_granted("ROLE_PRODUCER") %}
+                                    <a class="nav-link" href="{{ path('farm_update') }}">Modifier mon exploitation</a>
+                                {% endif %}
+                                <a class="nav-link" href="{{ path('security_login') }}">Se connecter</a>
+                            </div>
                         </li>
                     {% else %}
                         <li class="nav-item">
