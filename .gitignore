@@ -1,5 +1,6 @@
 /build/
-/.idea/
+# file: ~/.gitignore_global
+.idea
 ###> symfony/framework-bundle ###
 /.env.local
 /.env.local.php
