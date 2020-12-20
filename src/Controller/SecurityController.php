@@ -6,7 +6,9 @@ namespace App\Controller;
 
 use App\Dto\ForgottenPasswordInput;
 use App\Form\ForgottenPasswordType;
+use App\Form\ResetPasswordType;
 use App\Repository\UserRepository;
+use Doctrine\ORM\NonUniqueResultException;
 use Exception;
 use LogicException;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
@@ -18,7 +20,9 @@ use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Address;
 use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Symfony\Component\Uid\Uuid;
 
 class SecurityController extends AbstractController
 {
@@ -90,8 +94,39 @@ class SecurityController extends AbstractController
     /**
      * @Route("/reset-password/{token}", name="security_reset_password")
      * @param string $token
+     * @param Request $request
+     * @param UserRepository $userRepository
+     * @param UserPasswordEncoderInterface $userPasswordEncoder
+     * @return Response
+     * @throws NonUniqueResultException
      */
-    public function resetPassword(string $token)
-    {
+    public function resetPassword(
+        string $token,
+        Request $request,
+        UserRepository $userRepository,
+        UserPasswordEncoderInterface $userPasswordEncoder
+    ): Response {
+        $user = $userRepository->getUserByForgottenPassword(Uuid::fromString($token));
+        if (null === $user) {
+            $this->addFlash("danger", "Cette demande de réinitialisation de mot de passe n'existe pas");
+        }
+        $form = $this->createForm(ResetPasswordType::class, $user)->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $user->setPassword(
+                $userPasswordEncoder->encodePassword($user, $user->getPlainPassword())
+            );
+            $this->getDoctrine()->getManager()->flush();
+            $this->addFlash(
+                "success",
+                "Votre mot de passe a été réinitialisé avec succès"
+            );
+
+            return $this->redirectToRoute('security_login');
+        }
+
+        return $this->render('ui/security/reset_password.html.twig', [
+            'resetPasswordForm' => $form->createView(),
+        ]);
     }
 }

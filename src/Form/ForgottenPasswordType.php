@@ -23,5 +23,4 @@ class ForgottenPasswordType extends AbstractType
     {
         $resolver->setDefault("data_class", ForgottenPasswordInput::class);
     }
-
 }

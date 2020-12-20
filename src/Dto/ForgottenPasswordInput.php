@@ -33,6 +33,4 @@ class ForgottenPasswordInput
     {
         $this->email = $email;
     }
-
-
 }

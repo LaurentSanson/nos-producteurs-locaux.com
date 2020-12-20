@@ -2,22 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c21f9e4f-a462-422d-a4a2-f20e72551920" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/466d0800-eec1-4c0a-b005-8350a11c9aca.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/466d0800-eec1-4c0a-b005-8350a11c9aca.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/8dd07fd2-4197-48c6-ae06-c2f2a074a4b3.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/8dd07fd2-4197-48c6-ae06-c2f2a074a4b3.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/nosProducteursLocaux.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/nosProducteursLocaux.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/RegistrationController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/RegistrationController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/SecurityController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/SecurityController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Entity/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/User.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Form/RegistrationFormType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/RegistrationFormType.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Repository/UserRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/UserRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/symfony.lock" beforeDir="false" afterPath="$PROJECT_DIR$/symfony.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/ui/security/login.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/ui/security/login.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/ForgottenPasswordTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/tests/ForgottenPasswordTest.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -185,7 +175,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/tests" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/templates/ui/security" />
     <property name="node.js.detected.package.stylelint" value="true" />
     <property name="node.js.path.for.package.stylelint" value="project" />
     <property name="node.js.selected.package.stylelint" value="" />
@@ -197,9 +187,10 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/templates/ui/security" />
+      <recent name="$PROJECT_DIR$/src/Form" />
       <recent name="$PROJECT_DIR$/tests" />
       <recent name="$PROJECT_DIR$/templates" />
-      <recent name="$PROJECT_DIR$/templates/ui/security" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/templates" />
@@ -222,6 +213,7 @@
       <workItem from="1608369459679" duration="183000" />
       <workItem from="1608446877203" duration="33000" />
       <workItem from="1608446932336" duration="1292000" />
+      <workItem from="1608459559231" duration="1517000" />
     </task>
     <task id="LOCAL-00001" summary="ci: setup github action">
       <created>1608362634503</created>
@@ -258,7 +250,14 @@
       <option name="project" value="LOCAL" />
       <updated>1608401879426</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="feat: forgotten password">
+      <created>1608458980028</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1608458980028</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -285,7 +284,8 @@
     <MESSAGE value="fix: change password on dev ci" />
     <MESSAGE value="fix: phpunit" />
     <MESSAGE value="feat: login and logout" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: login and logout" />
+    <MESSAGE value="feat: forgotten password" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: forgotten password" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
