@@ -19,5 +19,4 @@ class Producer extends User
     {
         return ['ROLE_PRODUCER'];
     }
-
 }
