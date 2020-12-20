@@ -66,7 +66,12 @@ abstract class User implements UserInterface
     /**
      * @ORM\Column(type="boolean")
      */
-    private bool $isVerified = false;
+    protected bool $isVerified = false;
+
+    /**
+     * @ORM\Embedded(class="ForgottenPassword")
+     */
+    protected ?ForgottenPassword $forgottenPassword;
 
     /**
      * User constructor.
@@ -204,6 +209,9 @@ abstract class User implements UserInterface
     {
     }
 
+    /**
+     * @return string
+     */
     public function getUsername(): string
     {
         return $this->email;
@@ -212,5 +220,26 @@ abstract class User implements UserInterface
     public function eraseCredentials()
     {
         $this->plainPassword = null;
+    }
+
+    public function hasForgotHisPassword(): void
+    {
+        $this->forgottenPassword = new ForgottenPassword();
+    }
+
+    /**
+     * @return ForgottenPassword|null
+     */
+    public function getForgottenPassword(): ?ForgottenPassword
+    {
+        return $this->forgottenPassword;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFullName(): string
+    {
+        return sprintf("%s %s", $this->firstname, $this->lastname);
     }
 }

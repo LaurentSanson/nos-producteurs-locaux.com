@@ -43,9 +43,8 @@ class RegistrationController extends AbstractController
             $user->setPassword(
                 $passwordEncoder->encodePassword($user, $user->getPlainPassword())
             );
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($user);
-            $entityManager->flush();
+            $this->getDoctrine()->getManager()->persist($user);
+            $this->getDoctrine()->getManager()->flush();
             $this->addFlash("success", "Votre inscription a été effectuée avec succès");
 
             // generate a signed url and email it to the user
