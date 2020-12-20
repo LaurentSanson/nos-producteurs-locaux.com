@@ -1,0 +1,59 @@
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project version=\"4\">\n  <component name=\"ChangeListManager\">\n    <list default=\"true\" id=\"e9db38c9-ebde-4648-ae61-1087d87ff444\" name=\"Default Changelist\" comment=\"\">\n      <change beforePath=\"$PROJECT_DIR$/src/Entity/Producer.php\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/Entity/Producer.php\" afterDir=\"false\" />\n    </list>\n    <list id=\"7aa783fe-e78f-4107-a37c-c726ff99bc15\" name=\"Uncommitted changes before Checkout at 20/12/2020 13:47 [Default Changelist]\" comment=\"\" />\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\n  </component>\n  <component name=\"ComposerSettings\" synchronizationState=\"SYNCHRONIZE\">\n    <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>\n    <execution />\n  </component>\n  <component name=\"Git.Settings\">\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\n  </component>\n  <component name=\"ProjectId\" id=\"1lvDLL2W4gXDjITAOnohImhcxJE\" />\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\">\n    <ConfirmationsSetting value=\"1\" id=\"Add\" />\n  </component>\n  <component name=\"ProjectViewState\">\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\n    <option name=\"showLibraryContents\" value=\"true\" />\n  </component>\n  <component name=\"PropertiesComponent\">\n    <property name=\"RunOnceActivity.OpenProjectViewOnStart\" value=\"true\" />\n    <property name=\"RunOnceActivity.ShowReadmeOnStart\" value=\"true\" />\n    <property name=\"WebServerToolWindowFactoryState\" value=\"false\" />\n    <property name=\"nodejs_package_manager_path\" value=\"npm\" />\n    <property name=\"vue.rearranger.settings.migration\" value=\"true\" />\n  </component>\n  <component name=\"RunManager\">\n    <configuration default=\"true\" type=\"ComposerRunConfigurationType\" factoryName=\"Composer Script\">\n      <option name=\"pathToComposerJson\" value=\"$PROJECT_DIR$/composer.json\" />\n      <method v=\"2\" />\n    </configuration>\n  </component>\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\n  <component name=\"TaskManager\">\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\n      <changelist id=\"e9db38c9-ebde-4648-ae61-1087d87ff444\" name=\"Default Changelist\" comment=\"\" />\n      <created>1608468619076</created>\n      <option name=\"number\" value=\"Default\" />\n      <option name=\"presentableId\" value=\"Default\" />\n      <updated>1608468619076</updated>\n      <workItem from=\"1608468627338\" duration=\"435000\" />\n    </task>\n    <task id=\"LOCAL-00001\" summary=\"fix: try\">\n      <created>1608468725216</created>\n      <option name=\"number\" value=\"00001\" />\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1608468725216</updated>\n    </task>\n    <task id=\"LOCAL-00002\" summary=\"fix: fix farm entity\">\n      <created>1608468894447</created>\n      <option name=\"number\" value=\"00002\" />\n      <option name=\"presentableId\" value=\"LOCAL-00002\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1608468894447</updated>\n    </task>\n    <option name=\"localTasksCounter\" value=\"3\" />\n    <servers />\n  </component>\n  <component name=\"TypeScriptGeneratedFilesManager\">\n    <option name=\"version\" value=\"3\" />\n  </component>\n  <component name=\"Vcs.Log.Tabs.Properties\">\n    <option name=\"TAB_STATES\">\n      <map>\n        <entry key=\"MAIN\">\n          <value>\n            <State />\n          </value>\n        </entry>\n      </map>\n    </option>\n    <option name=\"oldMeFiltersMigrated\" value=\"true\" />\n  </component>\n  <component name=\"VcsManagerConfiguration\">\n    <MESSAGE value=\"fix: try\" />\n    <MESSAGE value=\"fix: fix farm entity\" />\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"fix: fix farm entity\" />\n  </component>\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision 1773bb7290cc409a6b3d346619a9795c65230c86)
++++ b/.idea/workspace.xml	(date 1608469795344)
+@@ -2,7 +2,7 @@
+ <project version="4">
+   <component name="ChangeListManager">
+     <list default="true" id="e9db38c9-ebde-4648-ae61-1087d87ff444" name="Default Changelist" comment="">
+-      <change beforePath="$PROJECT_DIR$/src/Entity/Producer.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Producer.php" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+     </list>
+     <list id="7aa783fe-e78f-4107-a37c-c726ff99bc15" name="Uncommitted changes before Checkout at 20/12/2020 13:47 [Default Changelist]" comment="" />
+     <option name="SHOW_DIALOG" value="false" />
+@@ -30,13 +30,8 @@
+     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+     <property name="WebServerToolWindowFactoryState" value="false" />
+     <property name="nodejs_package_manager_path" value="npm" />
++    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.VCS" />
+     <property name="vue.rearranger.settings.migration" value="true" />
+-  </component>
+-  <component name="RunManager">
+-    <configuration default="true" type="ComposerRunConfigurationType" factoryName="Composer Script">
+-      <option name="pathToComposerJson" value="$PROJECT_DIR$/composer.json" />
+-      <method v="2" />
+-    </configuration>
+   </component>
+   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+   <component name="TaskManager">
+@@ -46,7 +41,7 @@
+       <option name="number" value="Default" />
+       <option name="presentableId" value="Default" />
+       <updated>1608468619076</updated>
+-      <workItem from="1608468627338" duration="435000" />
++      <workItem from="1608468627338" duration="1119000" />
+     </task>
+     <task id="LOCAL-00001" summary="fix: try">
+       <created>1608468725216</created>
+@@ -62,7 +57,14 @@
+       <option name="project" value="LOCAL" />
+       <updated>1608468894447</updated>
+     </task>
+-    <option name="localTasksCounter" value="3" />
++    <task id="LOCAL-00003" summary="fix: fix farm entity">
++      <created>1608469068926</created>
++      <option name="number" value="00003" />
++      <option name="presentableId" value="LOCAL-00003" />
++      <option name="project" value="LOCAL" />
++      <updated>1608469068926</updated>
++    </task>
++    <option name="localTasksCounter" value="4" />
+     <servers />
+   </component>
+   <component name="TypeScriptGeneratedFilesManager">
