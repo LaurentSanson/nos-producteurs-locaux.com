@@ -5,7 +5,7 @@ namespace App\Controller;
 use App\Entity\Customer;
 use App\Entity\Producer;
 use App\Form\RegistrationFormType;
-use App\Security\EmailVerifier;
+use App\Security\Guard\EmailVerifier;
 use http\Client\Curl\User;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
