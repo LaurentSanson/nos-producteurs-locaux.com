@@ -16,6 +16,5 @@ class ProducerListener
     {
         $producer->setFarm(new Farm());
         $producer->getFarm()->setId(Uuid::v4());
-
     }
 }
