@@ -15,27 +15,14 @@ use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
 /**
- * Class RegistrationFormType
+ * Class ResetPasswordType
  * @package App\Form
  */
-class RegistrationFormType extends AbstractType
+class ResetPasswordType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder
-            ->add('email', EmailType::class)
-            ->add('firstname', TextType::class)
-            ->add('lastname', TextType::class)
-            ->add('plainPassword', PasswordType::class)
-            ->add('agreeTerms', CheckboxType::class, [
-                'mapped' => false,
-                'constraints' => [
-                    new IsTrue([
-                        'message' => "Merci d'accepter les termes.",
-                    ]),
-                ],
-            ])
-        ;
+        $builder->add('plainPassword', PasswordType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver)

@@ -34,6 +34,7 @@
                                 You are logged in as {{ app.user.username }}, <a href="{{ path('security_logout') }}">Logout</a>
                             </div>
                         {% else %}
+                            <a href="{{ path('security_forgotten_password') }}">Mot de passe oublié ?</a>
                         <button class="btn btn-block btn-primary">Se connecter</button>
                         {% endif %}
                     </div>
