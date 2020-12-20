@@ -1,4 +1,5 @@
 /build/
+# Ignore .idea files
 .idea/
 ###> symfony/framework-bundle ###
 /.env.local
