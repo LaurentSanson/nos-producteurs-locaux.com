@@ -2,15 +2,17 @@
 
 namespace App\Entity;
 
-use App\Repository\FarmRepository;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Uid\Uuid;
 
 /**
- * @ORM\Entity(repositoryClass=FarmRepository::class)
+ * Class Product
+ * @package App\Entity
+ * @ORM\Entity
+ * @ORM\EntityListeners({"App\EntityListener\ProductListener"})
  */
-class Farm
+class Product
 {
     /**
      * @ORM\Id
@@ -25,16 +27,29 @@ class Farm
     private ?string $name = null;
 
     /**
-     * @ORM\Column(nullable=true, type="text")
+     * @ORM\Column(type="text")
      * @Assert\NotBlank
      */
     private ?string $description = null;
 
     /**
-     * @ORM\OneToOne(targetEntity="Producer", mappedBy="farm")
-     * @ORM\JoinColumn(onDelete="CASCADE")
+     * @ORM\Column(type="integer")
+     * @Assert\NotBlank
+     * @Assert\GreaterThanOrEqual(value=0)
      */
-    private Producer $producer;
+    private int $quantity = 0;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Farm")
+     * @ORM\JoinColumn(onDelete="CASCADE", nullable=false)
+     */
+    private Farm $farm;
+
+    /**
+     * @ORM\Embedded(class="Price")
+     * @Assert\Valid
+     */
+    private Price $price;
 
     /**
      * @return Uuid
@@ -85,18 +100,50 @@ class Farm
     }
 
     /**
-     * @return Producer
+     * @return int
      */
-    public function getProducer(): Producer
+    public function getQuantity(): int
     {
-        return $this->producer;
+        return $this->quantity;
     }
 
     /**
-     * @param Producer $producer
+     * @param int $quantity
      */
-    public function setProducer(Producer $producer): void
+    public function setQuantity(int $quantity): void
     {
-        $this->producer = $producer;
+        $this->quantity = $quantity;
+    }
+
+    /**
+     * @return Farm
+     */
+    public function getFarm(): Farm
+    {
+        return $this->farm;
+    }
+
+    /**
+     * @param Farm $farm
+     */
+    public function setFarm(Farm $farm): void
+    {
+        $this->farm = $farm;
+    }
+
+    /**
+     * @return Price
+     */
+    public function getPrice(): Price
+    {
+        return $this->price;
+    }
+
+    /**
+     * @param Price $price
+     */
+    public function setPrice(Price $price): void
+    {
+        $this->price = $price;
     }
 }
