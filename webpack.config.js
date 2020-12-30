@@ -24,6 +24,7 @@ Encore
      */
     .addEntry('app', './assets/app.js')
     .addEntry('update_farm', './assets/update_farm.js')
+    .addEntry('index', './assets/index.js')
 
     // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
     .enableStimulusBridge('./assets/controllers.json')
