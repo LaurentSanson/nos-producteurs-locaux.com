@@ -62,7 +62,7 @@ class Map
             title: 'Mon exploitation'
         })
 
-        fetch(`https://maps.googleapis.com / maps / api / geocode / json ? latlng = ${this.marker.position.lat()},${this.marker.position.lng()} & key = ${process.env.GOOGLE_MAPS_API_KEY}`, {
+        fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${this.marker.position.lat()},${this.marker.position.lng()}&key=${process.env.GOOGLE_MAPS_API_KEY}`, {
             method: 'get',
             headers: {
                 'Accept': 'application/json'
