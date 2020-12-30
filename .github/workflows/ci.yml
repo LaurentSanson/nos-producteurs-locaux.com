@@ -45,13 +45,13 @@ jobs:
       - name: Install NPM dependencies
         run: |
           npm install
-          npm run dev
+          GOOGLE_MAPS_API_KEY=${{ secrets.GOOGLE_MAPS_API_KEY }} npm run dev
       - name: Prepare database
         run: |
           php bin/console doctrine:database:create
           php bin/console doctrine:schema:update --force
           php bin/console doctrine:fixtures:load -n
       - name: Run functional tests
-        run: php vendor/bin/simple-phpunit
+        run: GOOGLE_MAPS_API_KEY=${{ secrets.GOOGLE_MAPS_API_KEY }} php vendor/bin/simple-phpunit
       - name: Analyze coding style
         run: php vendor/bin/phpcs

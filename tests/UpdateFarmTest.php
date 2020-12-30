@@ -27,7 +27,12 @@ class UpdateFarmTest extends WebTestCase
 
         $form = $crawler->filter("form[name=farm]")->form([
             "farm[name]" => "Exploitation",
-            "farm[description]" => "Ceci est une description"
+            "farm[description]" => "Ceci est une description",
+            "farm[address][address]" => "adresse",
+            "farm[address][postCode]" => "44210",
+            "farm[address][city]" => "pornic",
+            "farm[address][position][latitude]" => 46.5,
+            "farm[address][position][longitude]" => 7.5,
         ]);
 
         $client->submit($form);

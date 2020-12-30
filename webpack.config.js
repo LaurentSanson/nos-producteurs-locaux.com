@@ -1,4 +1,6 @@
-var Encore = require('@symfony/webpack-encore');
+let Encore = require('@symfony/webpack-encore');
+let dotenv = require('dotenv');
+let fs = require('fs');
 
 // Manually configure the runtime environment if not already configured yet by the "encore" command.
 // It's useful when you use tools that rely on webpack.config.js file.
@@ -21,6 +23,7 @@ Encore
      * and one CSS file (e.g. app.scss) if your JavaScript imports CSS.
      */
     .addEntry('app', './assets/app.js')
+    .addEntry('update_farm', './assets/update_farm.js')
 
     // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
     .enableStimulusBridge('./assets/controllers.json')
@@ -69,7 +72,13 @@ Encore
     //.enableIntegrityHashes(Encore.isProduction())
 
     // uncomment if you're having problems with a jQuery plugin
-    //.autoProvidejQuery()
+    .autoProvidejQuery()
+    .configureDefinePlugin(options => {
+        if (typeof process.env.GOOGLE_MAPS_API_KEY === "undefined") {
+            const envConfig = dotenv.parse(fs.readFileSync('process.env'));
+            options['process.env'].GOOGLE_MAPS_API_KEY = "'"+envConfig.GOOGLE_MAPS_API_KEY+"'";
+        }
+    })
 ;
 
 module.exports = Encore.getWebpackConfig();
