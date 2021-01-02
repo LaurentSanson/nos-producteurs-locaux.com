@@ -7,7 +7,10 @@ namespace App\Entity;
 use App\Repository\UserRepository;
 use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
+use Exception;
+use Serializable;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Security\Core\User\EquatableInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Uid\Uuid;
@@ -20,7 +23,7 @@ use Symfony\Component\Uid\Uuid;
  * @ORM\DiscriminatorMap({"producer"="App\Entity\Producer", "customer"="App\Entity\Customer"})
  * @UniqueEntity(fields={"email"}, message="Cet e-mail est déjà associé à un compte")
  */
-abstract class User implements UserInterface
+abstract class User implements UserInterface, Serializable, EquatableInterface
 {
     /**
      * @ORM\Id
@@ -53,8 +56,8 @@ abstract class User implements UserInterface
     protected string $password = "";
 
     /**
-     * @Assert\NotBlank
-     * @Assert\Length(min=8)
+     * @Assert\NotBlank(groups="password")
+     * @Assert\Length(min=8, groups="password")
      */
     protected ?string $plainPassword = null;
 
@@ -242,5 +245,26 @@ abstract class User implements UserInterface
     public function getFullName(): string
     {
         return sprintf("%s %s", $this->firstname, $this->lastname);
+    }
+
+    public function serialize()
+    {
+        return serialize([
+            $this->id,
+            $this->email
+        ]);
+    }
+
+    public function unserialize($serialized)
+    {
+        list(
+            $this->id,
+            $this->email
+            ) = unserialize($serialized);
+    }
+
+    public function isEqualTo(UserInterface $user)
+    {
+        return $user->getUsername() === $this->getUsername();
     }
 }

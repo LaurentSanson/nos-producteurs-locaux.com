@@ -37,7 +37,9 @@ class RegistrationController extends AbstractController
     {
         $user = Producer::ROLE === $role ? new Producer() : new Customer();
         $user->setId(Uuid::v4());
-        $form = $this->createForm(RegistrationFormType::class, $user)->handleRequest($request);
+        $form = $this->createForm(RegistrationFormType::class, $user, [
+            "validation_groups" => ["Default" => "password"]
+        ])->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $user->setPassword(

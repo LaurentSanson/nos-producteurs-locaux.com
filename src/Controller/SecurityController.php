@@ -110,7 +110,9 @@ class SecurityController extends AbstractController
         if (null === $user) {
             $this->addFlash("danger", "Cette demande de réinitialisation de mot de passe n'existe pas");
         }
-        $form = $this->createForm(ResetPasswordType::class, $user)->handleRequest($request);
+        $form = $this->createForm(ResetPasswordType::class, $user, [
+        "validation_groups" => ["password"]
+        ])->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $user->setPassword(
