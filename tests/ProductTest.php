@@ -285,7 +285,7 @@ class ProductTest extends WebTestCase
         $this->assertResponseStatusCodeSame(Response::HTTP_FORBIDDEN);
     }
 
-    public function testNoLoggedProductCreate()
+    public function testLoggedOutProductCreate()
     {
         $client = static::createClient();
 
