@@ -15,7 +15,7 @@ class ProducerListener
     public function prePersist(Producer $producer): void
     {
         $farm = new Farm();
-        $farm->setId(Uuid::V4());
+        $farm->setId(Uuid::v4());
         $farm->setProducer($producer);
         $producer->setFarm($farm);
     }

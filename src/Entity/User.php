@@ -7,7 +7,6 @@ namespace App\Entity;
 use App\Repository\UserRepository;
 use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
-use Exception;
 use Serializable;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\EquatableInterface;
@@ -16,12 +15,13 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Uid\Uuid;
 
 /**
- * @ORM\Entity(repositoryClass=UserRepository::class)
- * @ORM\Table(name="`user`")
+ * Class User
+ * @package App\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="discr", type="string")
- * @ORM\DiscriminatorMap({"producer"="App\Entity\Producer", "customer"="App\Entity\Customer"})
- * @UniqueEntity(fields={"email"}, message="Cet e-mail est déjà associé à un compte")
+ * @ORM\DiscriminatorMap({"producer"="Producer", "customer"="Customer"})
+ * @UniqueEntity(fields="email", message="Cet e-mail est déjà associé à un compte")
  */
 abstract class User implements UserInterface, Serializable, EquatableInterface
 {
@@ -32,7 +32,7 @@ abstract class User implements UserInterface, Serializable, EquatableInterface
     protected Uuid $id;
 
     /**
-     * @ORM\Column(type="string", length=180, unique=true)
+     * @ORM\Column(unique=true)
      * @Assert\NotBlank
      * @Assert\Email
      */

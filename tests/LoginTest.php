@@ -66,7 +66,7 @@ class LoginTest extends WebTestCase
 
         $client->followRedirect();
 
-        $this->assertSelectorTextContains("div.alert-danger", "Invalid credentials.");
+        $this->assertSelectorTextContains("div.alert-danger", "Identifiants invalides.");
     }
 
     public function testInvalidEmail(): void

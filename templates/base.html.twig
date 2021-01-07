@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width-device-width, initial-scale=1, shrink-to-fit=no">
@@ -56,6 +56,15 @@
         </nav>
     </header>
         <div class="container py-5">
+            {% for label, messages in app.flashes %}
+                {% for message in messages %}
+                    <div class="container text-center" id="alert">
+                        <div class="alert-{{ label }}">
+                            {{ message }}
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endfor %}
             {% block body %}{% endblock %}
         </div>
         {% block javascripts %}
