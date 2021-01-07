@@ -25,6 +25,9 @@ class ProductType extends AbstractType
             ->add('price', PriceType::class, [
                 "label" => false
             ])
+            ->add('image', ImageType::class, [
+                "label" => false
+            ])
         ;
     }
 

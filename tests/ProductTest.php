@@ -6,9 +6,11 @@ use App\Entity\Product;
 use Doctrine\ORM\EntityManagerInterface;
 use Generator;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\RouterInterface;
+use Symfony\Component\Uid\Uuid;
 
 /**
  * Class ProductTest
@@ -28,6 +30,28 @@ class ProductTest extends WebTestCase
         $crawler = $client->request(Request::METHOD_GET, $router->generate("product_index"));
 
         $this->assertResponseStatusCodeSame(Response::HTTP_OK);
+    }
+
+    public function testSuccessfulProductCreate(): void
+    {
+        $client = static::createAuthenticatedClient("producer@email.com");
+
+        /** @var RouterInterface $router */
+        $router = $client->getContainer()->get('router');
+
+        $crawler = $client->request(Request::METHOD_GET, $router->generate("product_create"));
+
+        $form = $crawler->filter("form[name=product]")->form([
+            "product[name]" => "Produit",
+            "product[description]" => "Ceci est une description",
+            "product[price][unitPrice]" => 100,
+            "product[price][vat]" => 2.1,
+            "product[image][file]" => $this->createImage()
+        ]);
+
+        $client->submit($form);
+
+        $this->assertResponseStatusCodeSame(Response::HTTP_FOUND);
     }
 
     public function testSuccessfulProductUpdate(): void
@@ -50,7 +74,8 @@ class ProductTest extends WebTestCase
             "product[name]" => "Produit",
             "product[description]" => "Ceci est une description",
             "product[price][unitPrice]" => 100,
-            "product[price][vat]" => 2.1
+            "product[price][vat]" => 2.1,
+            "product[image][file]" => $this->createImage()
         ]);
 
         $client->submit($form);
@@ -98,27 +123,6 @@ class ProductTest extends WebTestCase
         $client->request(Request::METHOD_GET, $router->generate("product_delete", [
             "id" => (string) $product->getId()
         ]));
-
-        $this->assertResponseStatusCodeSame(Response::HTTP_FOUND);
-    }
-
-    public function testSuccessfulProductCreate(): void
-    {
-        $client = static::createAuthenticatedClient("producer@email.com");
-
-        /** @var RouterInterface $router */
-        $router = $client->getContainer()->get('router');
-
-        $crawler = $client->request(Request::METHOD_GET, $router->generate("product_create"));
-
-        $form = $crawler->filter("form[name=product]")->form([
-            "product[name]" => "Produit",
-            "product[description]" => "Ceci est une description",
-            "product[price][unitPrice]" => 100,
-            "product[price][vat]" => 2.1
-        ]);
-
-        $client->submit($form);
 
         $this->assertResponseStatusCodeSame(Response::HTTP_FOUND);
     }
@@ -361,5 +365,25 @@ class ProductTest extends WebTestCase
         $client->followRedirect();
 
         $this->assertRouteSame("security_login");
+    }
+
+    /**
+     * @return UploadedFile
+     */
+    private function createImage(): UploadedFile
+    {
+        $filename = Uuid::v4() . '.png';
+        copy(
+            __DIR__ . '/../public/uploads/image.png',
+            __DIR__ . '/../public/uploads/' . $filename
+        );
+
+        return new UploadedFile(
+            __DIR__ . '/../public/uploads/' . $filename,
+            $filename,
+            'image/png',
+            null,
+            true
+        );
     }
 }
