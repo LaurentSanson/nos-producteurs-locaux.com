@@ -33,7 +33,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
      * @return User|null
      * @throws NonUniqueResultException
      */
-    public function getUserByForgottenPassword(Uuid $token): ?User
+    public function getUserByForgottenPasswordToken(Uuid $token): ?User
     {
         return $this->createQueryBuilder("u")
             ->where("u.forgottenPassword.token = :token")

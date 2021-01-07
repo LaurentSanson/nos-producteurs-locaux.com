@@ -9,8 +9,6 @@ use App\Form\ForgottenPasswordType;
 use App\Form\ResetPasswordType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\NonUniqueResultException;
-use Exception;
-use LogicException;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -106,10 +104,14 @@ class SecurityController extends AbstractController
         UserRepository $userRepository,
         UserPasswordEncoderInterface $userPasswordEncoder
     ): Response {
-        $user = $userRepository->getUserByForgottenPassword(Uuid::fromString($token));
-        if (null === $user) {
+        if (
+            !Uuid::isValid($token)
+            || null === ($user = $userRepository->getUserByForgottenPasswordToken(Uuid::fromString($token)))
+        ) {
             $this->addFlash("danger", "Cette demande de réinitialisation de mot de passe n'existe pas");
+            return $this->redirectToRoute("security_login");
         }
+
         $form = $this->createForm(ResetPasswordType::class, $user, [
         "validation_groups" => ["password"]
         ])->handleRequest($request);

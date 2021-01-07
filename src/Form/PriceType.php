@@ -15,9 +15,12 @@ class PriceType extends AbstractType
     {
         $builder
             ->add('unitPrice', MoneyType::class, [
+                'label' => 'Prix unitaire HT',
+                'empty_data' => 0,
                 'scale' => 0
             ])
             ->add('vat', ChoiceType::class, [
+                'label' => 'TVA',
                 'choices' => [
                     "2,1%" => 2.1,
                     "5,5%" => 5.5,

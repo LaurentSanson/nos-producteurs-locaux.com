@@ -2,11 +2,11 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use App\Entity\Customer;
 use App\Entity\Producer;
 use App\Form\RegistrationFormType;
 use App\Security\Guard\EmailVerifier;
-use http\Client\Curl\User;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -38,7 +38,7 @@ class RegistrationController extends AbstractController
         $user = Producer::ROLE === $role ? new Producer() : new Customer();
         $user->setId(Uuid::v4());
         $form = $this->createForm(RegistrationFormType::class, $user, [
-            "validation_groups" => ["Default" => "password"]
+            'validation_groups' => ['Default', 'password']
         ])->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
