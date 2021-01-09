@@ -2,8 +2,11 @@
 
 namespace App\Security\Voter;
 
+use App\Entity\CartItem;
+use App\Entity\Customer;
 use App\Entity\Producer;
 use App\Entity\Product;
+use Cassandra\Custom;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
@@ -18,12 +21,14 @@ class ProductVoter extends Voter
 
     public const DELETE = "delete";
 
+    public const ADD_TO_CART = "add_to_cart";
+
     /**
      * @@inheritDoc
      */
     protected function supports(string $attribute, $subject): bool
     {
-        return in_array($attribute, [self::UPDATE, self::DELETE]) && $subject instanceof Product;
+        return in_array($attribute, [self::UPDATE, self::DELETE, self::ADD_TO_CART]) && $subject instanceof Product;
     }
 
     /**
@@ -38,6 +43,21 @@ class ProductVoter extends Voter
         }
 
         /** @var Product $subject */
+        if ($attribute === self::ADD_TO_CART) {
+            return $this->voteOnAddToCart($user, $subject);
+        }
+
         return $subject->getFarm() === $user->getFarm();
+    }
+
+    private function voteOnAddToCart(Customer $customer, Product $product): bool
+    {
+        if ($customer->getCart()->count() === 0) {
+            return true;
+        }
+
+        return $customer->getCart()
+            ->map(fn(CartItem $cartItem) => $cartItem->getProduct()->getFarm())
+            ->contains($product->getFarm());
     }
 }
