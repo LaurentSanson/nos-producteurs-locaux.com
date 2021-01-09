@@ -38,18 +38,19 @@ class ProductVoter extends Voter
     {
         $user = $token->getUser();
 
-        if (!$user instanceof Producer) {
-            return false;
-        }
-
         /** @var Product $subject */
         if ($attribute === self::ADD_TO_CART) {
-            return $this->voteOnAddToCart($user, $subject);
+            return $user instanceof Customer && $this->voteOnAddToCart($user, $subject);
         }
 
-        return $subject->getFarm() === $user->getFarm();
+        return $user instanceof Producer && $subject->getFarm() === $user->getFarm();
     }
 
+    /**
+     * @param Customer $customer
+     * @param Product $product
+     * @return bool
+     */
     private function voteOnAddToCart(Customer $customer, Product $product): bool
     {
         if ($customer->getCart()->count() === 0) {
@@ -57,7 +58,7 @@ class ProductVoter extends Voter
         }
 
         return $customer->getCart()
-            ->map(fn(CartItem $cartItem) => $cartItem->getProduct()->getFarm())
+            ->map(fn (CartItem $cartItem) => $cartItem->getProduct()->getFarm())
             ->contains($product->getFarm());
     }
 }
