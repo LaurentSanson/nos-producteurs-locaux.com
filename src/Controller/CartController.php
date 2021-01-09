@@ -21,6 +21,7 @@ class CartController extends AbstractController
 {
     /**
      * @Route("/add/{id}", name="cart_add")
+     * @IsGranted("add_to_cart", subject="product")
      * @param Product $product
      * @return RedirectResponse
      */
