@@ -7,6 +7,7 @@ use App\Entity\Order;
 use App\Entity\OrderLine;
 use App\Repository\OrderRepository;
 use DateTimeImmutable;
+use phpDocumentor\Reflection\Types\This;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -39,10 +40,24 @@ class OrderController extends AbstractController
 
             $order->getLines()->add($line);
         }
+        $order->setFarm($this->getUser()->getCart()->first()->getProduct()->getFarm());
         $this->getUser()->getCart()->clear();
         $this->getDoctrine()->getManager()->persist($order);
         $this->getDoctrine()->getManager()->flush();
         return $this->redirectToRoute('order_history');
+    }
+
+    /**
+     * @Route("/history", name="order_manage")
+     * @param OrderRepository $orderRepository
+     * @return Response
+     * @IsGranted("ROLE_PRODUCER")
+     */
+    public function manage(OrderRepository $orderRepository): Response
+    {
+        return $this->render("ui/order/manage.html.twig", [
+            "orders" => $orderRepository->findByFarm($this->getUser()->getFarm())
+        ]);
     }
 
     /**
