@@ -2,6 +2,8 @@
 
 namespace App\Tests;
 
+use App\Entity\Farm;
+use App\Entity\Producer;
 use App\Entity\Product;
 use Doctrine\ORM\EntityManagerInterface;
 use Generator;
@@ -59,20 +61,24 @@ class ProductTest extends WebTestCase
         $client = static::createAuthenticatedClient("producer@email.com");
 
         /** @var RouterInterface $router */
-        $router = $client->getContainer()->get('router');
+        $router = $client->getContainer()->get("router");
 
         /** @var EntityManagerInterface $entityManager */
-        $entityManager = $client->getContainer()->get('doctrine.orm.entity_manager');
+        $entityManager = $client->getContainer()->get("doctrine.orm.entity_manager");
 
-        $product = $entityManager->getRepository(Product::class)->findOneBy([]);
+        $producer = $entityManager->getRepository(Producer::class)->findOneByEmail("producer@email.com");
+
+        $farm = $entityManager->getRepository(Farm::class)->findOneByProducer($producer);
+
+        $product = $entityManager->getRepository(Product::class)->findOneByFarm($farm);
 
         $crawler = $client->request(Request::METHOD_GET, $router->generate("product_update", [
-            "id" => (string) $product->getId()
+            "id" => (string)$product->getId()
         ]));
 
         $form = $crawler->filter("form[name=product]")->form([
             "product[name]" => "Produit",
-            "product[description]" => "Ceci est une description",
+            "product[description]" => "Description",
             "product[price][unitPrice]" => 100,
             "product[price][vat]" => 2.1,
             "product[image][file]" => $this->createImage()
@@ -88,15 +94,19 @@ class ProductTest extends WebTestCase
         $client = static::createAuthenticatedClient("producer@email.com");
 
         /** @var RouterInterface $router */
-        $router = $client->getContainer()->get('router');
+        $router = $client->getContainer()->get("router");
 
         /** @var EntityManagerInterface $entityManager */
-        $entityManager = $client->getContainer()->get('doctrine.orm.entity_manager');
+        $entityManager = $client->getContainer()->get("doctrine.orm.entity_manager");
 
-        $product = $entityManager->getRepository(Product::class)->findOneBy([]);
+        $producer = $entityManager->getRepository(Producer::class)->findOneByEmail("producer@email.com");
+
+        $farm = $entityManager->getRepository(Farm::class)->findOneByProducer($producer);
+
+        $product = $entityManager->getRepository(Product::class)->findOneByFarm($farm);
 
         $crawler = $client->request(Request::METHOD_GET, $router->generate("product_stock", [
-            "id" => (string) $product->getId()
+            "id" => (string)$product->getId()
         ]));
 
         $form = $crawler->filter("form[name=stock]")->form([
@@ -108,58 +118,63 @@ class ProductTest extends WebTestCase
         $this->assertResponseStatusCodeSame(Response::HTTP_FOUND);
     }
 
+
     public function testSuccessfulProductDelete(): void
     {
         $client = static::createAuthenticatedClient("producer@email.com");
 
         /** @var RouterInterface $router */
-        $router = $client->getContainer()->get('router');
+        $router = $client->getContainer()->get("router");
 
         /** @var EntityManagerInterface $entityManager */
-        $entityManager = $client->getContainer()->get('doctrine.orm.entity_manager');
+        $entityManager = $client->getContainer()->get("doctrine.orm.entity_manager");
 
-        $product = $entityManager->getRepository(Product::class)->findOneBy([]);
+        $producer = $entityManager->getRepository(Producer::class)->findOneByEmail("producer@email.com");
+
+        $farm = $entityManager->getRepository(Farm::class)->findOneByProducer($producer);
+
+        $product = $entityManager->getRepository(Product::class)->findOneByFarm($farm);
 
         $client->request(Request::METHOD_GET, $router->generate("product_delete", [
-            "id" => (string) $product->getId()
+            "id" => (string)$product->getId()
         ]));
 
         $this->assertResponseStatusCodeSame(Response::HTTP_FOUND);
     }
 
-//    /**
-//     * @param array $formData
-//     * @param string $errorMessage
-//     * @dataProvider provideBadRequests
-//     */
-//    public function testFailedProductUpdate(array $formData, string $errorMessage): void
-//    {
-//        $client = static::createAuthenticatedClient("producer@email.com");
-//
-//        /** @var RouterInterface $router */
-//        $router = $client->getContainer()->get("router");
-//
-//        /** @var EntityManagerInterface $entityManager */
-//        $entityManager = $client->getContainer()->get("doctrine.orm.entity_manager");
-//
-//        $producer = $entityManager->getRepository(Producer::class)->findOneByEmail("producer@email.com");
-//
-//        $farm = $entityManager->getRepository(Farm::class)->findOneByProducer($producer);
-//
-//        $product = $entityManager->getRepository(Product::class)->findOneByFarm($farm);
-//
-//        $crawler = $client->request(Request::METHOD_GET, $router->generate("product_update", [
-//            "id" => (string)$product->getId()
-//        ]));
-//
-//        $form = $crawler->filter("form[name=product]")->form($formData);
-//
-//        $client->submit($form);
-//
-//        $this->assertResponseStatusCodeSame(Response::HTTP_OK);
-//
-//        $this->assertSelectorTextContains("span.form-error-message", $errorMessage);
-//    }
+    /**
+     * @param array $formData
+     * @param string $errorMessage
+     * @dataProvider provideBadRequests
+     */
+    public function testFailedProductUpdate(array $formData, string $errorMessage): void
+    {
+        $client = static::createAuthenticatedClient("producer@email.com");
+
+        /** @var RouterInterface $router */
+        $router = $client->getContainer()->get("router");
+
+        /** @var EntityManagerInterface $entityManager */
+        $entityManager = $client->getContainer()->get("doctrine.orm.entity_manager");
+
+        $producer = $entityManager->getRepository(Producer::class)->findOneByEmail("producer@email.com");
+
+        $farm = $entityManager->getRepository(Farm::class)->findOneByProducer($producer);
+
+        $product = $entityManager->getRepository(Product::class)->findOneByFarm($farm);
+
+        $crawler = $client->request(Request::METHOD_GET, $router->generate("product_update", [
+            "id" => (string)$product->getId()
+        ]));
+
+        $form = $crawler->filter("form[name=product]")->form($formData);
+
+        $client->submit($form);
+
+        $this->assertResponseStatusCodeSame(Response::HTTP_OK);
+
+        $this->assertSelectorTextContains("span.form-error-message", $errorMessage);
+    }
 
     /**
      * @param array $formData

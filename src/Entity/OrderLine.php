@@ -3,7 +3,8 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Uid\Uuid;
+use Ramsey\Uuid\Doctrine\UuidGenerator;
+use Ramsey\Uuid\UuidInterface;
 
 /**
  * Class OrderLine
@@ -15,8 +16,10 @@ class OrderLine
     /**
      * @ORM\Id
      * @ORM\Column(type="uuid")
+     * @ORM\GeneratedValue(strategy="CUSTOM")
+     * @ORM\CustomIdGenerator(class=UuidGenerator::class)
      */
-    private Uuid $id;
+    private UuidInterface $id;
 
     /**
      * @ORM\Embedded(class="Price")
@@ -29,31 +32,23 @@ class OrderLine
     private int $quantity = 0;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Order")
+     * @ORM\ManyToOne(targetEntity="Order", inversedBy="lines")
      * @ORM\JoinColumn(onDelete="CASCADE")
      */
     private Order $order;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Product", inversedBy="lines")
+     * @ORM\ManyToOne(targetEntity="Product")
      * @ORM\JoinColumn(onDelete="SET NULL", nullable=true)
      */
     private ?Product $product = null;
 
     /**
-     * @return Uuid
+     * @return UuidInterface
      */
-    public function getId(): Uuid
+    public function getId(): UuidInterface
     {
         return $this->id;
-    }
-
-    /**
-     * @param Uuid $id
-     */
-    public function setId(Uuid $id): void
-    {
-        $this->id = $id;
     }
 
     /**

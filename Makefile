@@ -1,11 +1,11 @@
 analyze:
-	sh vendor/bin/phpcbf
-	sh vendor/bin/phpcs
+	php ./vendor/bin/phpcbf
+	php ./vendor/bin/phpcs
 
 .PHONY: tests vendor
 tests: vendor
 	make prepare-test
-	sh vendor/bin/simple-phpunit
+	php ./vendor/bin/simple-phpunit
 
 .PHONY: prepare-dev
 prepare-dev: bin

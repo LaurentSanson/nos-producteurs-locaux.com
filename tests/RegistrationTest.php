@@ -46,7 +46,8 @@ class RegistrationTest extends WebTestCase
             "registration_form[email]" => "email1@email.com",
             "registration_form[plainPassword]" => "password",
             "registration_form[firstname]" => "John",
-            "registration_form[lastname]" => "Doe"
+            "registration_form[lastname]" => "Doe",
+            "registration_form[farm][name]" => "Exploitation"
         ]];
         yield ['customer', [
             "registration_form[email]" => "email2@email.com",
@@ -173,10 +174,23 @@ class RegistrationTest extends WebTestCase
         yield [
             "producer",
             [
+                "registration_form[email]" => "email@email.com",
+                "registration_form[plainPassword]" => "password",
+                "registration_form[firstname]" => "John",
+                "registration_form[lastname]" => "Doe",
+                "registration_form[farm][name]" => ""
+            ],
+            "Cette valeur ne doit pas être vide."
+        ];
+
+        yield [
+            "producer",
+            [
                 "registration_form[email]" => "",
                 "registration_form[plainPassword]" => "password",
                 "registration_form[firstname]" => "John",
-                "registration_form[lastname]" => "Doe"
+                "registration_form[lastname]" => "Doe",
+                "registration_form[farm][name]" => "Exploitation"
             ],
             "Cette valeur ne doit pas être vide."
         ];
@@ -187,7 +201,8 @@ class RegistrationTest extends WebTestCase
                 "registration_form[email]" => "email@email.com",
                 "registration_form[plainPassword]" => "",
                 "registration_form[firstname]" => "John",
-                "registration_form[lastname]" => "Doe"
+                "registration_form[lastname]" => "Doe",
+                "registration_form[farm][name]" => "Exploitation"
             ],
             "Cette valeur ne doit pas être vide."
         ];
@@ -198,7 +213,8 @@ class RegistrationTest extends WebTestCase
                 "registration_form[email]" => "email@email.com",
                 "registration_form[plainPassword]" => "password",
                 "registration_form[firstname]" => "",
-                "registration_form[lastname]" => "Doe"
+                "registration_form[lastname]" => "Doe",
+                "registration_form[farm][name]" => "Exploitation"
             ],
             "Cette valeur ne doit pas être vide."
         ];
@@ -209,7 +225,8 @@ class RegistrationTest extends WebTestCase
                 "registration_form[email]" => "email@email.com",
                 "registration_form[plainPassword]" => "password",
                 "registration_form[firstname]" => "John",
-                "registration_form[lastname]" => ""
+                "registration_form[lastname]" => "",
+                "registration_form[farm][name]" => "Exploitation"
             ],
             "Cette valeur ne doit pas être vide."
         ];
@@ -220,7 +237,8 @@ class RegistrationTest extends WebTestCase
                 "registration_form[email]" => "fail",
                 "registration_form[plainPassword]" => "password",
                 "registration_form[firstname]" => "John",
-                "registration_form[lastname]" => "Doe"
+                "registration_form[lastname]" => "Doe",
+                "registration_form[farm][name]" => "Exploitation"
             ],
             "Cette valeur n'est pas une adresse email valide."
         ];
@@ -231,7 +249,8 @@ class RegistrationTest extends WebTestCase
                 "registration_form[email]" => "email@email.com",
                 "registration_form[plainPassword]" => "fail",
                 "registration_form[firstname]" => "John",
-                "registration_form[lastname]" => "Doe"
+                "registration_form[lastname]" => "Doe",
+                "registration_form[farm][name]" => "Exploitation"
             ],
             "Cette chaîne est trop courte. Elle doit avoir au minimum 8 caractères."
         ];
@@ -242,7 +261,8 @@ class RegistrationTest extends WebTestCase
                 "registration_form[email]" => "producer@email.com",
                 "registration_form[plainPassword]" => "password",
                 "registration_form[firstname]" => "John",
-                "registration_form[lastname]" => "Doe"
+                "registration_form[lastname]" => "Doe",
+                "registration_form[farm][name]" => "Exploitation"
             ],
             "Cet e-mail est déjà associé à un compte"
         ];

@@ -4,7 +4,8 @@ namespace App\Entity;
 
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Uid\Uuid;
+use Ramsey\Uuid\Doctrine\UuidGenerator;
+use Ramsey\Uuid\UuidInterface;
 
 /**
  * Class Product
@@ -17,8 +18,10 @@ class Product
     /**
      * @ORM\Id
      * @ORM\Column(type="uuid")
+     * @ORM\GeneratedValue(strategy="CUSTOM")
+     * @ORM\CustomIdGenerator(class=UuidGenerator::class)
      */
-    private Uuid $id;
+    private UuidInterface $id;
 
     /**
      * @ORM\Column(nullable=true)
@@ -58,19 +61,11 @@ class Product
     private Image $image;
 
     /**
-     * @return Uuid
+     * @return UuidInterface
      */
-    public function getId(): Uuid
+    public function getId(): UuidInterface
     {
         return $this->id;
-    }
-
-    /**
-     * @param Uuid $id
-     */
-    public function setId(Uuid $id): void
-    {
-        $this->id = $id;
     }
 
     /**

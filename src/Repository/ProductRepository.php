@@ -13,6 +13,7 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method Product[]    findAll()
  * @method Product[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  * @method Product[]    findByFarm(Farm $farm)
+ * @method Product|null    findOneByFarm(Farm $farm)
  */
 class ProductRepository extends ServiceEntityRepository
 {
