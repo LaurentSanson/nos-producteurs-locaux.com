@@ -21,27 +21,16 @@ class OrderTest extends WebTestCase
 {
     use AuthenticationTrait;
 
-    public function testSuccessfulCreateOrder(): void
+    public function testSuccessfulManageOrders(): void
     {
-        $client = static::createAuthenticatedClient("customer@email.com");
+        $client = static::createAuthenticatedClient("producer@email.com");
 
         /** @var RouterInterface $router */
-        $router = $client->getContainer()->get('router');
+        $router = $client->getContainer()->get("router");
 
-        /** @var EntityManagerInterface $entityManager */
-        $entityManager = $client->getContainer()->get('doctrine.orm.entity_manager');
+        $client->request(Request::METHOD_GET, $router->generate("order_manage"));
 
-        $product = $entityManager->getRepository(Product::class)->findOneBy([]);
-
-        $client->request(Request::METHOD_GET, $router->generate("cart_add", [
-            "id" => $product->getId()
-        ]));
-
-        $this->assertResponseStatusCodeSame(Response::HTTP_FOUND);
-
-        $client->request(Request::METHOD_GET, $router->generate("order_create"));
-
-        $this->assertResponseStatusCodeSame(Response::HTTP_FOUND);
+        $this->assertResponseStatusCodeSame(Response::HTTP_OK);
     }
 
     public function testSuccessfulCreateOrderAndCancelIt(): void
