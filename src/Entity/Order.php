@@ -53,6 +53,12 @@ class Order
     private Collection $lines;
 
     /**
+     * @ORM\ManyToOne(targetEntity="Farm")
+     * @ORM\JoinColumn(onDelete="CASCADE")
+     */
+    private Farm $farm;
+
+    /**
      * Order constructor.
      */
     public function __construct()
@@ -155,5 +161,21 @@ class Order
     public function setCanceledAt(?DateTimeImmutable $canceledAt): void
     {
         $this->canceledAt = $canceledAt;
+    }
+
+    /**
+     * @return Farm
+     */
+    public function getFarm(): Farm
+    {
+        return $this->farm;
+    }
+
+    /**
+     * @param Farm $farm
+     */
+    public function setFarm(Farm $farm): void
+    {
+        $this->farm = $farm;
     }
 }
