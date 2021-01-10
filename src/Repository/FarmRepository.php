@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Farm;
+use App\Entity\Producer;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -11,6 +12,8 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method Farm|null findOneBy(array $criteria, array $orderBy = null)
  * @method Farm[]    findAll()
  * @method Farm[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Farm[]    findByFarm(Farm $farm)
+ * @method Farm|null    findOneByProducer(Producer $producer)
  */
 class FarmRepository extends ServiceEntityRepository
 {
@@ -19,32 +22,26 @@ class FarmRepository extends ServiceEntityRepository
         parent::__construct($registry, Farm::class);
     }
 
-    // /**
-    //  * @return Farm[] Returns an array of Farm objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function getNextSlug(string $slug): string
     {
-        return $this->createQueryBuilder('f')
-            ->andWhere('f.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('f.id', 'ASC')
-            ->setMaxResults(10)
+        $foundSlugs = $this->createQueryBuilder("f")
+            ->select("f.slug")
+            ->where("REGEXP(f.slug, :pattern) > 0")
+            ->setParameter("pattern", "^" . $slug)
             ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+            ->getScalarResult();
 
-    /*
-    public function findOneBySomeField($value): ?Farm
-    {
-        return $this->createQueryBuilder('f')
-            ->andWhere('f.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        if (count($foundSlugs) === 0) {
+            return $slug;
+        }
+
+        $foundSlugs = array_map(function (string $foundSlug) use ($slug) {
+            preg_match("/^" . $slug . "-([0-9]*)$/", $foundSlug, $matches);
+            return !isset($matches[1]) ? 0 : intval($matches[1]);
+        }, array_column($foundSlugs, "slug"));
+
+        rsort($foundSlugs);
+
+        return sprintf("%s-%d", $slug, $foundSlugs[0] + 1);
     }
-    */
 }

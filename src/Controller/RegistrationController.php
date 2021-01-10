@@ -36,7 +36,6 @@ class RegistrationController extends AbstractController
     public function register(string $role, Request $request, UserPasswordEncoderInterface $passwordEncoder): Response
     {
         $user = Producer::ROLE === $role ? new Producer() : new Customer();
-        $user->setId(Uuid::v4());
         $form = $this->createForm(RegistrationFormType::class, $user, [
             'validation_groups' => ['Default', 'password']
         ])->handleRequest($request);

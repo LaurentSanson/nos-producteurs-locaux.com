@@ -40,7 +40,6 @@ class ProductFixtures extends Fixture implements DependentFixtureInterface
             $farm->setAddress($address);
             for ($i = 1; $i <= 10; $i++) {
                 $product = new Product();
-                $product->setId(Uuid::v4());
                 $product->setFarm($farm);
                 $product->setName("Product " . $i);
                 $product->setDescription("Description . $i");

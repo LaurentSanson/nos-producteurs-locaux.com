@@ -6,7 +6,7 @@ use App\Entity\CartItem;
 use App\Entity\Customer;
 use App\Entity\Producer;
 use App\Entity\Product;
-use Cassandra\Custom;
+use App\Entity\User;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
@@ -16,7 +16,6 @@ use Symfony\Component\Security\Core\Authorization\Voter\Voter;
  */
 class ProductVoter extends Voter
 {
-
     public const UPDATE = "update";
 
     public const DELETE = "delete";
@@ -24,7 +23,7 @@ class ProductVoter extends Voter
     public const ADD_TO_CART = "add_to_cart";
 
     /**
-     * @@inheritDoc
+     * @inheritDoc
      */
     protected function supports(string $attribute, $subject): bool
     {
@@ -32,13 +31,14 @@ class ProductVoter extends Voter
     }
 
     /**
-     * @@inheritDoc
+     * @inheritDoc
      */
     protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token): bool
     {
         $user = $token->getUser();
 
         /** @var Product $subject */
+
         if ($attribute === self::ADD_TO_CART) {
             return $user instanceof Customer && $this->voteOnAddToCart($user, $subject);
         }

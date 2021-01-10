@@ -11,7 +11,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Class Producer
  * @package App\Entity
  * @ORM\Entity
- * @ORM\EntityListeners({"App\EntityListener\ProducerListener"})
  */
 class Producer extends User
 {
@@ -19,6 +18,7 @@ class Producer extends User
 
     /**
      * @ORM\OneToOne(targetEntity="Farm", cascade={"persist"}, inversedBy="producer")
+     * @Assert\Valid
      */
     private Farm $farm;
 

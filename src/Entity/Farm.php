@@ -3,33 +3,43 @@
 namespace App\Entity;
 
 use App\Repository\FarmRepository;
-use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Uid\Uuid;
+use Ramsey\Uuid\Doctrine\UuidGenerator;
+use Ramsey\Uuid\UuidInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=FarmRepository::class)
+ * @ORM\EntityListeners("App\EntityListener\FarmListener")
  */
 class Farm
 {
     /**
      * @ORM\Id
      * @ORM\Column(type="uuid")
+     * @ORM\GeneratedValue(strategy="CUSTOM")
+     * @ORM\CustomIdGenerator(class=UuidGenerator::class)
      * @Groups({"read"})
      */
-    private Uuid $id;
+    private ?UuidInterface $id = null;
 
     /**
-     * @ORM\Column(nullable=true)
+     * @ORM\Column()
      * @Assert\NotBlank
      * @Groups({"read"})
      */
-    private ?string $name = null;
+    private string $name = "";
+
+    /**
+     * @ORM\Column(unique=true)
+     * @Groups({"read"})
+     */
+    private string $slug;
 
     /**
      * @ORM\Column(nullable=true, type="text")
-     * @Assert\NotBlank
+     * @Assert\NotBlank(groups={"edit"})
      */
     private ?string $description = null;
 
@@ -41,47 +51,55 @@ class Farm
 
     /**
      * @ORM\Embedded(class="Address")
-     * @Assert\Valid
+     * @Assert\Valid(groups={"edit"})
      * @Groups({"read"})
      */
     private ?Address $address = null;
 
     /**
      * @ORM\Embedded(class="Image")
-     * @Assert\Valid
+     * @Assert\Valid(groups={"edit"})
      */
     private Image $image;
 
     /**
-     * @return Uuid
+     * @return UuidInterface|null
      */
-    public function getId(): Uuid
+    public function getId(): ?UuidInterface
     {
         return $this->id;
     }
 
     /**
-     * @param Uuid $id
+     * @return string
      */
-    public function setId(Uuid $id): void
-    {
-        $this->id = $id;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getName(): ?string
+    public function getName(): string
     {
         return $this->name;
     }
 
     /**
-     * @param string|null $name
+     * @param string $name
      */
-    public function setName(?string $name): void
+    public function setName(string $name): void
     {
         $this->name = $name;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSlug(): string
+    {
+        return $this->slug;
+    }
+
+    /**
+     * @param string $slug
+     */
+    public function setSlug(string $slug): void
+    {
+        $this->slug = $slug;
     }
 
     /**
