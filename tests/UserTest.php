@@ -20,6 +20,89 @@ class UserTest extends WebTestCase
 {
     use AuthenticationTrait;
 
+    public function testSuccessfulEditInfo(): void
+    {
+        $client = static::createAuthenticatedClient("customer@email.com");
+
+        /** @var RouterInterface $router */
+        $router = $client->getContainer()->get("router");
+
+        $crawler = $client->request(Request::METHOD_GET, $router->generate("user_edit_infos"));
+
+        $this->assertResponseStatusCodeSame(Response::HTTP_OK);
+
+        $form = $crawler->filter("form[name=user_infos]")->form([
+            "user_infos[firstname]" => "firstname",
+            "user_infos[lastname]" => "lastname",
+            "user_infos[email]" => "email@email.com"
+        ]);
+
+        $client->submit($form);
+
+        $this->assertResponseStatusCodeSame(Response::HTTP_FOUND);
+    }
+
+    /**
+     * @param array $formData
+     * @param string $errorMessage
+     * @dataProvider provideBadRequestsForEditInfo
+     */
+    public function testBadRequestForEditInfo(array $formData, string $errorMessage): void
+    {
+        $client = static::createAuthenticatedClient("customer@email.com");
+
+        /** @var RouterInterface $router */
+        $router = $client->getContainer()->get("router");
+
+        $crawler = $client->request(Request::METHOD_GET, $router->generate("user_edit_infos"));
+
+        $this->assertResponseStatusCodeSame(Response::HTTP_OK);
+
+        $form = $crawler->filter("form[name=user_infos]")->form($formData);
+
+        $client->submit($form);
+
+        $this->assertResponseStatusCodeSame(Response::HTTP_OK);
+
+        $this->assertSelectorTextContains("span.form-error-message", $errorMessage);
+    }
+
+    public function provideBadRequestsForEditInfo(): Generator
+    {
+        yield [
+            [
+                "user_infos[firstname]" => "",
+                "user_infos[lastname]" => "lastname",
+                "user_infos[email]" => "email@email.com"
+            ],
+            "Cette valeur ne doit pas être vide."
+        ];
+        yield [
+            [
+                "user_infos[firstname]" => "firstname",
+                "user_infos[lastname]" => "",
+                "user_infos[email]" => "email@email.com"
+            ],
+            "Cette valeur ne doit pas être vide."
+        ];
+        yield [
+            [
+                "user_infos[firstname]" => "firstname",
+                "user_infos[lastname]" => "lastname",
+                "user_infos[email]" => ""
+            ],
+            "Cette valeur ne doit pas être vide."
+        ];
+        yield [
+            [
+                "user_infos[firstname]" => "firstname",
+                "user_infos[lastname]" => "lastname",
+                "user_infos[email]" => "fail"
+            ],
+            "Cette valeur n'est pas une adresse email valide."
+        ];
+    }
+
     public function testSuccessfulEditPassword(): void
     {
         $client = static::createAuthenticatedClient("customer@email.com");
