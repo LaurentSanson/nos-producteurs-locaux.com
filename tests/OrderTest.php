@@ -33,6 +33,40 @@ class OrderTest extends WebTestCase
         $this->assertResponseStatusCodeSame(Response::HTTP_OK);
     }
 
+    public function testSuccessfulRefuseOrder(): void
+    {
+        $client = static::createAuthenticatedClient("producer@email.com");
+
+        /** @var RouterInterface $router */
+        $router = $client->getContainer()->get("router");
+
+        $client->request(Request::METHOD_GET, $router->generate("order_manage"));
+
+        $this->assertResponseStatusCodeSame(Response::HTTP_OK);
+
+        /** @var EntityManagerInterface $entityManager */
+        $entityManager = $client->getContainer()->get("doctrine.orm.entity_manager");
+
+        $producer = $entityManager->getRepository(Producer::class)->findOneByEmail("producer@email.com");
+
+        $order = $entityManager->getRepository(Order::class)->findOneBy([
+            "state" => "created",
+            "farm" => $producer->getFarm()
+        ]);
+
+        $client->request(Request::METHOD_GET, $router->generate("order_refuse", [
+            "id" => $order->getId()
+        ]));
+
+        $this->assertResponseStatusCodeSame(Response::HTTP_FOUND);
+
+        $entityManager->clear();
+
+        $order = $entityManager->getRepository(Order::class)->find($order->getId());
+
+        $this->assertEquals("refused", $order->getState());
+    }
+
     public function testSuccessfulCreateOrderAndCancelIt(): void
     {
         $client = static::createAuthenticatedClient("customer@email.com");

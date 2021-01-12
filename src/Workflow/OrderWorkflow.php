@@ -33,7 +33,7 @@ class OrderWorkflow implements EventSubscriberInterface
     {
         return [
             'workflow.order.completed.cancel' => 'onCancel',
-//            'workflow.order.completed.refuse' => 'onRefuse',
+            'workflow.order.completed.refuse' => 'onRefuse',
 //            'workflow.order.completed.settle' => 'onSettle',
 //            'workflow.order.completed.accept' => 'onAccept'
         ];
@@ -61,16 +61,16 @@ class OrderWorkflow implements EventSubscriberInterface
 //        $this->entityManager->flush();
 //    }
 //
-//    /**
-//     * @param Event $event
-//     */
-//    public function onRefuse(Event $event): void
-//    {
-//        /** @var Order $order */
-//        $order = $event->getSubject();
-//        $order->setRefusedAt(new \DateTimeImmutable());
-//        $this->entityManager->flush();
-//    }
+    /**
+     * @param Event $event
+     */
+    public function onRefuse(Event $event): void
+    {
+        /** @var Order $order */
+        $order = $event->getSubject();
+        $order->setRefusedAt(new DateTimeImmutable());
+        $this->entityManager->flush();
+    }
 
     /**
      * @param Event $event
@@ -79,7 +79,7 @@ class OrderWorkflow implements EventSubscriberInterface
     {
         /** @var Order $order */
         $order = $event->getSubject();
-        $order->setCanceledAt(new \DateTimeImmutable());
+        $order->setCanceledAt(new DateTimeImmutable());
         $this->entityManager->flush();
     }
 }
