@@ -42,6 +42,22 @@ class Order
     private ?DateTimeImmutable $canceledAt = null;
 
     /**
+     * @ORM\Column(type="datetime_immutable", nullable=true)
+     */
+    private ?\DateTimeImmutable $refusedAt = null;
+
+    /**
+     * @ORM\Column(type="datetime_immutable", nullable=true)
+     */
+    private ?\DateTimeImmutable $acceptedAt = null;
+
+    /**
+     * @ORM\Column(type="datetime_immutable", nullable=true)
+     */
+    private ?\DateTimeImmutable $settledAt = null;
+
+
+    /**
      * @ORM\ManyToOne(targetEntity="Customer")
      * @ORM\JoinColumn(onDelete="CASCADE")
      */
@@ -105,6 +121,30 @@ class Order
     public function setCreatedAt(DateTimeImmutable $createdAt): void
     {
         $this->createdAt = $createdAt;
+    }
+
+    /**
+     * @param DateTimeImmutable|null $refusedAt
+     */
+    public function setRefusedAt(?DateTimeImmutable $refusedAt): void
+    {
+        $this->refusedAt = $refusedAt;
+    }
+
+    /**
+     * @param DateTimeImmutable|null $acceptedAt
+     */
+    public function setAcceptedAt(?DateTimeImmutable $acceptedAt): void
+    {
+        $this->acceptedAt = $acceptedAt;
+    }
+
+    /**
+     * @param DateTimeImmutable|null $settledAt
+     */
+    public function setSettledAt(?DateTimeImmutable $settledAt): void
+    {
+        $this->settledAt = $settledAt;
     }
 
     /**
