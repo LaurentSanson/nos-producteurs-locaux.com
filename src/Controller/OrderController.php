@@ -100,4 +100,17 @@ class OrderController extends AbstractController
         $orderStateMachine->apply($order, 'refuse');
         return $this->redirectToRoute("order_manage");
     }
+
+    /**
+     * @Route("/{id}/settle", name="order_settle")
+     * @param Order $order
+     * @param WorkflowInterface $orderStateMachine
+     * @return RedirectResponse
+     * @IsGranted("settle", subject="order")
+     */
+    public function settle(Order $order, WorkflowInterface $orderStateMachine): RedirectResponse
+    {
+        $orderStateMachine->apply($order, 'settle');
+        return $this->redirectToRoute("order_manage");
+    }
 }
