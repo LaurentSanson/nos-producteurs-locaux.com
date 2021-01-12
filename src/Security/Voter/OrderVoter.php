@@ -21,6 +21,7 @@ class OrderVoter extends Voter
 
     public const CANCEL = "cancel";
     public const REFUSE = "refuse";
+    public const SETTLE = "settle";
 
     /**
      * @var WorkflowInterface
@@ -41,7 +42,7 @@ class OrderVoter extends Voter
      */
     protected function supports(string $attribute, $subject): bool
     {
-        return in_array($attribute, [self::CANCEL, self::REFUSE]) && $subject instanceof Order;
+        return in_array($attribute, [self::CANCEL, self::REFUSE, self::SETTLE]) && $subject instanceof Order;
     }
 
     /**
@@ -61,6 +62,10 @@ class OrderVoter extends Voter
                 return $user instanceof Producer
                     && $user->getFarm() === $subject->getFarm()
                     && $this->orderStateMachine->can($subject, "refuse");
+            case self::SETTLE:
+                return $user instanceof Producer
+                    && $user->getFarm() === $subject->getFarm()
+                    && $this->orderStateMachine->can($subject, "settle");
         }
 
         throw new LogicException("Vous n'êtes pas censé arriver ici."); // @codeCoverageIgnore
