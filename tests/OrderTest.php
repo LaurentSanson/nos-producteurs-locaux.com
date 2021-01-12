@@ -5,6 +5,7 @@ namespace App\Tests;
 use App\Entity\Customer;
 use App\Entity\Farm;
 use App\Entity\Order;
+use App\Entity\Producer;
 use App\Entity\Product;
 use Doctrine\ORM\EntityManagerInterface;
 use Generator;

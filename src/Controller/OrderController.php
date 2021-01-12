@@ -15,6 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Uid\Uuid;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\Workflow\Registry;
+use Symfony\Component\Workflow\WorkflowInterface;
 
 /**
  * Class OrderController
@@ -77,36 +78,26 @@ class OrderController extends AbstractController
     /**
      * @Route("/{id}/cancel", name="order_cancel")
      * @param Order $order
-     * @param Registry $registry
+     * @param WorkflowInterface $orderStateMachine
      * @return RedirectResponse
      * @IsGranted("cancel", subject="order")
      */
-    public function cancel(Order $order, Registry $registry): RedirectResponse
+    public function cancel(Order $order, WorkflowInterface $orderStateMachine): RedirectResponse
     {
-        $workflow = $registry->get($order);
-        if (!$workflow->can($order, "cancel")) {
-            $this->addFlash("danger", "Vous ne pouvez pas annuler cette commande");
-            return $this->redirectToRoute("order_history");
-        }
-        $workflow->apply($order, 'cancel');
+        $orderStateMachine->apply($order, 'cancel');
         return $this->redirectToRoute("order_history");
     }
 
     /**
      * @Route("/{id}/refuse", name="order_refuse")
      * @param Order $order
-     * @param Registry $registry
+     * @param WorkflowInterface $orderStateMachine
      * @return RedirectResponse
      * @IsGranted("refuse", subject="order")
      */
-    public function refuse(Order $order, Registry $registry): RedirectResponse
+    public function refuse(Order $order, WorkflowInterface $orderStateMachine): RedirectResponse
     {
-        $workflow = $registry->get($order);
-        if (!$workflow->can($order, "refuse")) {
-            $this->addFlash("danger", "Vous ne pouvez pas refuser cette commande");
-            return $this->redirectToRoute("order_history");
-        }
-        $workflow->apply($order, 'refuse');
+        $orderStateMachine->apply($order, 'refuse');
         return $this->redirectToRoute("order_manage");
     }
 }
