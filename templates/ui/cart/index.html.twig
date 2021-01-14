@@ -5,7 +5,7 @@
 {% block body %}
     <div class="row">
         <div class="col-12">
-            {{ form_start(cartForm) }}
+            {{ form_start(form) }}
             <div class="card">
                 <div class="card-header">
                     <h1 class="mb-0">Mon panier</h1>
@@ -21,7 +21,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    {% for cartItem in cartForm.cart %}
+                    {% for cartItem in form.cart %}
                         <tr>
                             <td class="text-center">{{ cartItem.vars.data.product.name }}</td>
                             <td class="text-center">{{ (cartItem.vars.data.product.price.unitPrice/100) | format_currency('EUR')}}</td>
@@ -43,7 +43,7 @@
                     <a href="{{ path('order_create') }}" class="btn btn-block btn-primary">Commander</a>
                 </div>
             </div>
-            {{ form_end(cartForm) }}
+            {{ form_end(form) }}
         </div>
     </div>
 {% endblock %}

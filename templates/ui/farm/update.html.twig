@@ -3,7 +3,7 @@
 {% block title %}Mon exploitation{% endblock %}
 
 {% block body %}
-    {{ form_start(farmForm) }}
+    {{ form_start(form) }}
     <div class="row justify-content-center align-items-stretch">
         <div class="col-6">
             <div class="card">
@@ -11,20 +11,20 @@
                     <h1 class="mb-0">Mon exploitation</h1>
                 </div>
                 <div class="card-body">
-                    {{ form_row(farmForm.name) }}
-                    {{ form_row(farmForm.description) }}
+                    {{ form_row(form.name) }}
+                    {{ form_row(form.description) }}
                     <div class="form-group">
-                        {{ form_label(farmForm.address.address) }}
-                        {{ form_widget(farmForm.address.address) }}
+                        {{ form_label(form.address.address) }}
+                        {{ form_widget(form.address.address) }}
                         <ul class="auto-complete"></ul>
-                        {{ form_errors(farmForm.address.address) }}
+                        {{ form_errors(form.address.address) }}
                     </div>
-                    {{ form_row(farmForm.address.restAddress) }}
-                    {{ form_row(farmForm.address.postCode) }}
-                    {{ form_row(farmForm.address.city) }}
+                    {{ form_row(form.address.restAddress) }}
+                    {{ form_row(form.address.postCode) }}
+                    {{ form_row(form.address.city) }}
 
                     <button type="button" class="btn btn-outline-danger btn-remove-file" data-target="#farm_image_path">Supprimer l'image</button>
-                    {{ form_row(farmForm.image) }}
+                    {{ form_row(form.image) }}
                 </div>
                 <div class="card-footer">
                     <button class="btn btn-block btn-primary">Modifier</button>
@@ -39,7 +39,7 @@
             </div>
         </div>
     </div>
-    {{ form_end(farmForm) }}
+    {{ form_end(form) }}
 {% endblock %}
 
 {% block javascripts %}

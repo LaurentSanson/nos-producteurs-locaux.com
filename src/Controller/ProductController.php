@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Product;
 use App\Form\ProductType;
 use App\Form\StockType;
+use App\Handler\CreateProductHandler;
 use App\Repository\ProductRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -33,29 +34,24 @@ class ProductController extends AbstractController
     }
 
     /**
-     * @Route("/create", name="product_create")
      * @param Request $request
+     * @param CreateProductHandler $handler
      * @return Response
+     * @Route("/create", name="product_create")
      */
-    public function create(Request $request): Response
+    public function create(Request $request, CreateProductHandler $handler): Response
     {
         $product = new Product();
-        $form = $this->createForm(ProductType::class, $product)->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
-            $this->addFlash(
-                "success",
-                "Votre produit a été créé avec succès"
-            );
-
-            return $this->redirectToRoute('product_index');
+        if ($handler->handle($request, $product)) {
+            return $this->redirectToRoute("product_index");
         }
 
-        return $this->render('ui/product/create.html.twig', [
-            'productForm' => $form->createView(),
+        return $this->render("ui/product/create.html.twig", [
+            "form" => $handler->createView()
         ]);
     }
+
 
     /**
      * @Route("/{id}/update", name="product_update")
@@ -79,7 +75,7 @@ class ProductController extends AbstractController
         }
 
         return $this->render('ui/product/update.html.twig', [
-            'productForm' => $form->createView(),
+            'form' => $form->createView(),
         ]);
     }
 
@@ -123,7 +119,7 @@ class ProductController extends AbstractController
         }
 
         return $this->render('ui/product/stock.html.twig', [
-            'productForm' => $form->createView(),
+            'form' => $form->createView(),
         ]);
     }
 }

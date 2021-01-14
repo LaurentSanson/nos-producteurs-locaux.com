@@ -5,18 +5,14 @@ namespace App\Controller;
 use App\Entity\CartItem;
 use App\Entity\Order;
 use App\Entity\OrderLine;
-use App\Form\AcceptOrderType;
+use App\Handler\AcceptOrderHandler;
 use App\Repository\OrderRepository;
-use DateTimeImmutable;
-use phpDocumentor\Reflection\Types\This;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Uid\Uuid;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Symfony\Component\Workflow\Registry;
 use Symfony\Component\Workflow\WorkflowInterface;
 
 /**
@@ -117,22 +113,21 @@ class OrderController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/accept", name="order_accept")
      * @param Request $request
      * @param Order $order
-     * @param WorkflowInterface $orderStateMachine
-     * @return Response
+     * @param AcceptOrderHandler $handler
+     * @return RedirectResponse
+     * @Route("/{id}/accept", name="order_accept")
      * @IsGranted("accept", subject="order")
      */
-    public function accept(Request $request, Order $order, WorkflowInterface $orderStateMachine): Response
+    public function accept(Request $request, Order $order, AcceptOrderHandler $handler): Response
     {
-        $form = $this->createForm(AcceptOrderType::class, $order)->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $orderStateMachine->apply($order, 'accept');
+        if ($handler->handle($request, $order)) {
             return $this->redirectToRoute("order_manage");
         }
+
         return $this->render("ui/order/accept.html.twig", [
-            "form" => $form->createView()
+            "form" => $handler->createView()
         ]);
     }
 }
