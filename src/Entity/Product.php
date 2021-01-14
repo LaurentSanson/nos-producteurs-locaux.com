@@ -24,21 +24,21 @@ class Product
     private UuidInterface $id;
 
     /**
-     * @ORM\Column(nullable=true)
+     * @ORM\Column
      * @Assert\NotBlank
      */
-    private ?string $name = null;
+    private string $name = "";
 
     /**
      * @ORM\Column(type="text")
      * @Assert\NotBlank
      */
-    private ?string $description = null;
+    private string $description = "";
 
     /**
      * @ORM\Column(type="integer")
      * @Assert\NotBlank
-     * @Assert\GreaterThanOrEqual(value=0)
+     * @Assert\GreaterThanOrEqual(0)
      */
     private int $quantity = 0;
 
@@ -46,7 +46,7 @@ class Product
      * @ORM\ManyToOne(targetEntity="Farm")
      * @ORM\JoinColumn(onDelete="CASCADE", nullable=false)
      */
-    private Farm $farm;
+    private ?Farm $farm = null;
 
     /**
      * @ORM\Embedded(class="Price")
@@ -58,7 +58,7 @@ class Product
      * @ORM\Embedded(class="Image")
      * @Assert\Valid
      */
-    private Image $image;
+    private ?Image $image = null;
 
     /**
      * @return UuidInterface
@@ -69,33 +69,33 @@ class Product
     }
 
     /**
-     * @return string|null
+     * @return string
      */
-    public function getName(): ?string
+    public function getName(): string
     {
         return $this->name;
     }
 
     /**
-     * @param string|null $name
+     * @param string $name
      */
-    public function setName(?string $name): void
+    public function setName(string $name): void
     {
         $this->name = $name;
     }
 
     /**
-     * @return string|null
+     * @return string
      */
-    public function getDescription(): ?string
+    public function getDescription(): string
     {
         return $this->description;
     }
 
     /**
-     * @param string|null $description
+     * @param string $description
      */
-    public function setDescription(?string $description): void
+    public function setDescription(string $description): void
     {
         $this->description = $description;
     }
@@ -117,17 +117,17 @@ class Product
     }
 
     /**
-     * @return Farm
+     * @return Farm|null
      */
-    public function getFarm(): Farm
+    public function getFarm(): ?Farm
     {
         return $this->farm;
     }
 
     /**
-     * @param Farm $farm
+     * @param Farm|null $farm
      */
-    public function setFarm(Farm $farm): void
+    public function setFarm(?Farm $farm): void
     {
         $this->farm = $farm;
     }
@@ -157,17 +157,17 @@ class Product
     }
 
     /**
-     * @return Image
+     * @return Image|null
      */
-    public function getImage(): Image
+    public function getImage(): ?Image
     {
         return $this->image;
     }
 
     /**
-     * @param Image $image
+     * @param Image|null $image
      */
-    public function setImage(Image $image): void
+    public function setImage(?Image $image): void
     {
         $this->image = $image;
     }

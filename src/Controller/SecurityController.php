@@ -5,20 +5,14 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Dto\ForgottenPasswordInput;
-use App\Form\ForgottenPasswordType;
-use App\Form\ResetPasswordType;
+use App\Handler\ForgottenPasswordHandler;
+use App\Handler\ResetPasswordHandler;
 use App\Repository\UserRepository;
 use Doctrine\ORM\NonUniqueResultException;
-use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
-use Symfony\Component\Mailer\MailerInterface;
-use Symfony\Component\Mime\Address;
-use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Uid\Uuid;
 
@@ -50,43 +44,21 @@ class SecurityController extends AbstractController
     }
 
     /**
-     * @Route("/forgotten-password", name="security_forgotten_password")
      * @param Request $request
-     * @param UserRepository $userRepository
-     * @param MailerInterface $mailer
+     * @param ForgottenPasswordHandler $handler
      * @return Response
-     * @throws TransportExceptionInterface
+     * @Route("/forgotten-password", name="security_forgotten_password")
      */
-    public function forgottenPassword(
-        Request $request,
-        UserRepository $userRepository,
-        MailerInterface $mailer
-    ): Response {
+    public function forgottenPassword(Request $request, ForgottenPasswordHandler $handler): Response
+    {
         $forgottenPasswordInput = new ForgottenPasswordInput();
-        $form = $this->createForm(ForgottenPasswordType::class, $forgottenPasswordInput)->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $user = $userRepository->findOneByEmail($forgottenPasswordInput->getEmail());
-            $user->hasForgotHisPassword();
-            $this->getDoctrine()->getManager()->flush();
-            $email = (new TemplatedEmail())
-                ->from('hello@nos-producteurs-locaux.com')
-                ->to(new Address($user->getEmail(), $user->getFullName()))
-                ->context(["forgottenPassword" => $user->getForgottenPassword()])
-                ->htmlTemplate('emails/forgotten_password.html.twig');
-
-            $mailer->send($email);
-            $this->addFlash(
-                "success",
-                "Votre demande de rénitialisation de mot de passe a bien été prise en compte.
-                Vous allez recevoir un email pour le réinitialiser"
-            );
-
-            return $this->redirectToRoute('security_login');
+        if ($handler->handle($request, $forgottenPasswordInput)) {
+            return $this->redirectToRoute("security_login");
         }
 
-        return $this->render('ui/security/forgotten_password.html.twig', [
-            'forgottenPasswordForm' => $form->createView(),
+        return $this->render("ui/security/forgotten_password.html.twig", [
+            "form" => $handler->createView()
         ]);
     }
 
@@ -95,7 +67,7 @@ class SecurityController extends AbstractController
      * @param string $token
      * @param Request $request
      * @param UserRepository $userRepository
-     * @param UserPasswordEncoderInterface $userPasswordEncoder
+     * @param ResetPasswordHandler $handler
      * @return Response
      * @throws NonUniqueResultException
      */
@@ -103,35 +75,22 @@ class SecurityController extends AbstractController
         string $token,
         Request $request,
         UserRepository $userRepository,
-        UserPasswordEncoderInterface $userPasswordEncoder
+        ResetPasswordHandler $handler
     ): Response {
         if (
             !Uuid::isValid($token)
             || null === ($user = $userRepository->getUserByForgottenPasswordToken(Uuid::fromString($token)))
         ) {
-            $this->addFlash("danger", "Cette demande de réinitialisation de mot de passe n'existe pas");
+            $this->addFlash("danger", "Cette demande d'oubli de mot de passe n'existe pas.");
             return $this->redirectToRoute("security_login");
         }
 
-        $form = $this->createForm(ResetPasswordType::class, $user, [
-        "validation_groups" => ["password"]
-        ])->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $user->setPassword(
-                $userPasswordEncoder->encodePassword($user, $user->getPlainPassword())
-            );
-            $this->getDoctrine()->getManager()->flush();
-            $this->addFlash(
-                "success",
-                "Votre mot de passe a été réinitialisé avec succès"
-            );
-
-            return $this->redirectToRoute('security_login');
+        if ($handler->handle($request, $user)) {
+            return $this->redirectToRoute("security_login");
         }
 
-        return $this->render('ui/security/reset_password.html.twig', [
-            'resetPasswordForm' => $form->createView(),
+        return $this->render("ui/security/reset_password.html.twig", [
+            "form" => $handler->createView()
         ]);
     }
 }

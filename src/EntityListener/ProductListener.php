@@ -12,7 +12,6 @@ use Symfony\Component\Uid\Uuid;
  */
 class ProductListener
 {
-
     /**
      * @var Security
      */
@@ -26,7 +25,7 @@ class ProductListener
     /**
      * @var string
      */
-    private string $uploadAsboluteDir;
+    private string $uploadAbsoluteDir;
 
 
     /**
@@ -39,7 +38,7 @@ class ProductListener
     {
         $this->security = $security;
         $this->uploadWebDir = $uploadWebDir;
-        $this->uploadAsboluteDir = $uploadAbsoluteDir;
+        $this->uploadAbsoluteDir = $uploadAbsoluteDir;
     }
 
     /**
@@ -47,20 +46,26 @@ class ProductListener
      */
     public function prePersist(Product $product): void
     {
+        $this->upload($product);
+
         if ($product->getFarm() !== null) {
-            return;
+            return; // @codeCoverageIgnore
         }
 
         $product->setFarm($this->security->getUser()->getFarm());
-
-        $this->upload($product);
     }
 
+    /**
+     * @param Product $product
+     */
     public function preUpdate(Product $product): void
     {
         $this->upload($product);
     }
 
+    /**
+     * @param Product $product
+     */
     private function upload(Product $product): void
     {
         if ($product->getImage() === null || $product->getImage()->getFile() === null) {
@@ -69,7 +74,7 @@ class ProductListener
 
         $filename = Uuid::v4() . $product->getImage()->getFile()->getClientOriginalExtension();
 
-        $product->getImage()->getFile()->move($this->uploadAsboluteDir, $filename);
+        $product->getImage()->getFile()->move($this->uploadAbsoluteDir, $filename);
 
         $product->getImage()->setPath($this->uploadWebDir . $filename);
     }
