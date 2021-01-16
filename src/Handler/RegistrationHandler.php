@@ -70,7 +70,6 @@ class RegistrationHandler extends AbstractHandler
         $this->entityManager->flush();
         $this->flashBag->add("success", "Votre inscription a été effectuée avec succès.");
 
-        // generate a signed url and email it to the user
         $this->emailVerifier->sendEmailConfirmation(
             'app_verify_email',
             $data,
@@ -78,7 +77,7 @@ class RegistrationHandler extends AbstractHandler
                 ->from(new Address('confirmation@nos-producteurs-locaux.com', 'Nos Producteurs Locaux'))
                 ->to($data->getEmail())
                 ->subject('Veuillez confirmer votre email')
-                ->htmlTemplate('ui/security/confirmation_email.html.twig')
+                ->htmlTemplate('emails/confirmation_email.html.twig')
         );
     }
 

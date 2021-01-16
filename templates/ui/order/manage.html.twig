@@ -26,11 +26,36 @@
                             <td class="text-center">{{ order.numberOfProducts }}</td>
                             <td class="text-center">{{ order.totalInculdingTaxes | format_currency('EUR') }}</td>
                             <td class="text-center">
+                                {% if order.state == 'created' %}
+                                    <span class="badge badge-info">En cours de traitement</span>
+                                {% elseif order.state == 'refused' %}
+                                    <span class="badge badge-danger">Refusée</span>
+                                {% elseif order.state == 'accepted' %}
+                                    <span class="badge badge-success">Acceptée</span>
+                                {% elseif order.state == 'settled' %}
+                                    <span class="badge badge-primary">Récupérée</span>
+                                {% elseif order.state == 'canceled' %}
+                                    <span class="badge badge-danger">Annulée</span>
+                                {% endif %}
                             </td>
                             <td class="text-center">
-                                {% if is_granted('refuse', order) %}
-                                    <a href="{{ path('order_refuse', {id: order.id}) }}" class="btn btn-outline-warning">Refuser</a>
-                                {% endif %}
+                                <div class="dropdown">
+                                    <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="fas fa-cogs"></i>
+                                    </button>
+                                    <div class="dropdown-menu">
+                                        {% if is_granted('accept', order) %}
+                                            <a href="{{ path('order_accept', {id: order.id}) }}" class="btn btn-outline-primary">Accepter</a>
+                                        {% endif %}
+                                        {% if is_granted('refuse', order) %}
+                                            <a href="{{ path('order_refuse', {id: order.id}) }}" class="btn btn-outline-warning">Refuser</a>
+                                        {% endif %}
+                                        {% if is_granted('settle', order) %}
+                                            <a href="{{ path('order_settle', {id: order.id}) }}" class="btn btn-outline-primary">Commande récupérée par le client</a>
+                                        {% endif %}
+                                    </div>
+                                </div>
+
                             </td>
                         </tr>
                     {% endfor %}

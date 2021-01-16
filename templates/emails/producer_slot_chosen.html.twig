@@ -1,0 +1,18 @@
+{% extends 'email.html.twig' %}
+
+{% block body %}
+    <h1>Bonjour {{ producer.fullName }},</h1>
+
+    <p>
+       Nous vonus confirmons votre rendez-vous le {{ order.chosenSlot.startedAt|date('l j F Y à h:i') }}
+    </p>
+    <p>
+        En cas d'indisponibilité...blablabla
+    </p>
+    <a href="{{ absolute_url(path('order_choose_slot', {id: order.id})) }}"></a>
+
+    <p>
+        <a href="{{ absolute_url(path('index')) }}"></a>
+        L'équipe Nos Producteurs Locaux
+    </p>
+{% endblock %}

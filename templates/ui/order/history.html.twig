@@ -27,14 +27,26 @@
                             <td class="text-center">{{ order.totalInculdingTaxes | format_currency('EUR') }}</td>
                             <td class="text-center">
                                 {% if order.state == 'created' %}
-                                    <span class="badge badge-primary">En cours de traitement</span>
+                                    <span class="badge badge-info">En cours de traitement</span>
+                                {% elseif order.state == 'refused' %}
+                                    <span class="badge badge-danger">Refusée</span>
+                                {% elseif order.state == 'accepted' %}
+                                    <span class="badge badge-success">Acceptée</span>
+                                {% elseif order.state == 'settled' %}
+                                    <span class="badge badge-primary">Récupérée</span>
                                 {% elseif order.state == 'canceled' %}
                                     <span class="badge badge-danger">Annulée</span>
                                 {% endif %}
                             </td>
                             <td class="text-center">
                                 {% if is_granted('cancel', order) %}
-                                    <a href="{{ path('order_cancel', {id: order.id}) }}" class="btn btn-outline-warning">Annuler</a>
+                                    <a href="{{ path('order_cancel', {id: order.id}) }}"
+                                       class="btn btn-outline-warning">Annuler</a>
+                                {% elseif order.state == 'accepted' and order.chosenSlot is not null %}
+                                    <a href="{{ path('order_choose_slot', {id: order.id}) }}"
+                                       class="btn btn-outline-warning">Choisir votre créneau</a>
+                                {% else %}
+                                    <span class="badge badge-primary">Aucune action nécessaire</span>
                                 {% endif %}
                             </td>
                         </tr>

@@ -19,7 +19,8 @@ class SlotType extends AbstractType
     {
         $builder->add("startedAt", DateTimeType::class, [
             "widget" => "single_text",
-            "input" => "datetime_immutable"
+            "input" => "datetime_immutable",
+            "label" => false
         ]);
     }
 

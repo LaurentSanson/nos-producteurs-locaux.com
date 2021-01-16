@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between">
+                    <h1 class="mb-0">Choisir un créneau</h1>
+                </div>
+                <div class="card-body">
+                    {% for slot in order.slots %}
+                        <div>
+                            <a href="{{ path('order_chosen_slot', {id: order.id, slot:slot.id}) }}" class="btn btn-outline-info">
+                                {{ slot.startedAt|date('l j F Y à h:i') }}
+                            </a>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
