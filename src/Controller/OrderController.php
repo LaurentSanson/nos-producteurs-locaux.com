@@ -3,14 +3,22 @@
 namespace App\Controller;
 
 use App\Entity\CartItem;
+use App\Entity\Customer;
 use App\Entity\Order;
 use App\Entity\OrderLine;
+use App\Entity\Slot;
 use App\Handler\AcceptOrderHandler;
+use App\Handler\ChooseSlotHandler;
 use App\Repository\OrderRepository;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
+use Symfony\Component\Mailer\Mailer;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Address;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\Workflow\WorkflowInterface;
@@ -113,11 +121,11 @@ class OrderController extends AbstractController
     }
 
     /**
+     * @Route("/{id}/accept", name="order_accept")
      * @param Request $request
      * @param Order $order
      * @param AcceptOrderHandler $handler
      * @return RedirectResponse
-     * @Route("/{id}/accept", name="order_accept")
      * @IsGranted("accept", subject="order")
      */
     public function accept(Request $request, Order $order, AcceptOrderHandler $handler): Response
@@ -129,5 +137,69 @@ class OrderController extends AbstractController
         return $this->render("ui/order/accept.html.twig", [
             "form" => $handler->createView()
         ]);
+    }
+
+    /**
+     * @Route("/{id}/choseSlot", name="order_choose_slot")
+     * @param Order $order
+     * @return Response
+     */
+    public function chooseSlot(Order $order): Response
+    {
+        return $this->render("ui/order/choose_slot.html.twig", [
+            "order" => $order
+        ]);
+    }
+
+    /**
+     * @Route("/{id}/{slot}/chosenSlot", name="order_chosen_slot")
+     * @param Order $order
+     * @param Slot $slot
+     * @param MailerInterface $mailer
+     * @return RedirectResponse
+     * @throws TransportExceptionInterface
+     */
+    public function chosenSlot(Order $order, Slot $slot, MailerInterface $mailer): Response
+    {
+        $order->setChosenSlot($slot);
+        $this->sendEmailToCustomer($order, $mailer);
+        $this->sendEmailToProducer($order, $mailer);
+        $this->addFlash("success", "Votre créneau est bien enregistré");
+        return $this->redirectToRoute('index');
+    }
+
+    /**
+     * @param Order $order
+     * @param MailerInterface $mailer
+     * @throws TransportExceptionInterface
+     */
+    private function sendEmailToCustomer(Order $order, MailerInterface $mailer): void
+    {
+        $email = (new TemplatedEmail())
+            ->to(new Address($order->getCustomer()->getEmail(), $order->getCustomer()->getFullName()))
+            ->from("hello@nos-producteur-locaux.com")
+            ->subject("NPL : Confirmation de rendez-vous")
+            ->context(["order" => $order, "customer" => $order->getCustomer()])
+            ->htmlTemplate('emails/customer_slot_chosen.html.twig');
+        $mailer->send($email);
+    }
+
+    /**
+     * @param Order $order
+     * @param MailerInterface $mailer
+     * @throws TransportExceptionInterface
+     */
+    private function sendEmailToProducer(Order $order, MailerInterface $mailer): void
+    {
+        $email = (new TemplatedEmail())
+            ->to(new Address(
+                $order->getFarm()->getProducer()->getEmail(),
+                $order->getFarm()->getProducer()->getFullName()
+            ))
+            ->from("hello@nos-producteur-locaux.com")
+            ->subject("NPL : Confirmation de récupération de commande")
+            ->context(["order" => $order, "producer" => $order->getFarm()->getProducer()])
+            ->htmlTemplate('emails/producer_slot_chosen.html.twig');
+        $mailer->send($email);
     }
 }

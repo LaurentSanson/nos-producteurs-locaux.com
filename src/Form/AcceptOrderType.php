@@ -20,7 +20,8 @@ class AcceptOrderType extends AbstractType
         $builder->add("slots", CollectionType::class, [
             "by_reference" => false,
             "allow_add" => true,
-            "entry_type" => SlotType::class
+            "entry_type" => SlotType::class,
+            "label" => false
         ]);
     }
 

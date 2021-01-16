@@ -67,6 +67,7 @@ class ForgottenPasswordHandler extends AbstractHandler
         $email = (new TemplatedEmail())
             ->to(new Address($user->getEmail(), $user->getFullName()))
             ->from("hello@nos-producteur-locaux.com")
+            ->subject("NPL : Réinitialisation de votre mot de passe")
             ->context(["forgottenPassword" => $user->getForgottenPassword()])
             ->htmlTemplate('emails/forgotten_password.html.twig');
         $this->mailer->send($email);

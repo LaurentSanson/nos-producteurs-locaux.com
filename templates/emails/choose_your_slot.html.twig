@@ -1,0 +1,17 @@
+{% extends 'email.html.twig' %}
+
+{% block body %}
+    <h1>Bonjour {{ customer.fullName }},</h1>
+
+    <p>
+       Bonne nouvelle, votre commande est acceptée et votre producteur vous propose plusieurs créneaux pour venir chercher votre commande.
+    </p>
+    <p>
+        Merci de vous rendre sur votre commande pour choisir le créneau qui vous convient
+    </p>
+    <a href="{{ absolute_url(path('order_choose_slot', {id: order.id})) }}">Votre commande</a>
+
+    <p>
+        L'équipe Nos Producteurs Locaux
+    </p>
+{% endblock %}
